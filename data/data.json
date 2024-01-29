@@ -1,0 +1,144 @@
+{
+  "sections": [
+    {
+      "type": "Section",
+      "id": "da17e01e-5d5b-446b-be98-a01d4fae901c",
+      "name": "Sección 1",
+      "description": "",
+      "pathIndex": 0,
+      "progress": 0,
+      "lessons": [
+        {
+          "type": "Lesson",
+          "id": "c82ed653-5fce-4f15-b42d-ec8b15db6559",
+          "name": "Lección 1",
+          "description": "",
+          "sectionIndex": 0,
+          "progress": 0,
+          "tasks": [
+            {
+              "type": "Task",
+              "id": "8741f8b6-9e90-46db-9766-85e2bb190ba5",
+              "name": "Tarea 1",
+              "description": "",
+              "grapheme": "",
+              "phoneme": "",
+              "lessonIndex": 0,
+              "progress": 0
+            },
+            {
+              "type": "Task",
+              "id": "95f82bd8-138b-444d-8a22-a4804a0563a9",
+              "name": "Tarea 2",
+              "description": "",
+              "grapheme": "",
+              "phoneme": "",
+              "lessonIndex": 1,
+              "progress": 0
+            }
+          ]
+        },
+        {
+          "type": "Lesson",
+          "id": "b8521fb2-bce0-4cb8-b65f-f53864dcedc1",
+          "name": "Lección 2",
+          "description": "",
+          "sectionIndex": 1,
+          "progress": 0,
+          "tasks": [
+            {
+              "type": "Task",
+              "id": "59f01252-10f0-4e4d-8c1a-5168552db494",
+              "name": "Tarea 1",
+              "description": "",
+              "grapheme": "",
+              "phoneme": "",
+              "lessonIndex": 0,
+              "progress": 0
+            },
+            {
+              "type": "Task",
+              "id": "b2a999ff-3454-4f47-8f83-577f5c47649d",
+              "name": "Tarea 2",
+              "description": "",
+              "grapheme": "",
+              "phoneme": "",
+              "lessonIndex": 1,
+              "progress": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "Section",
+      "id": "adc445d3-31f5-4d99-a5ff-d8788470fbdb",
+      "name": "Sección 2",
+      "description": "",
+      "pathIndex": 1,
+      "progress": 0,
+      "lessons": [
+        {
+          "type": "Lesson",
+          "id": "6d093159-82a5-48dd-a572-5744089caba4",
+          "name": "Lección 1",
+          "description": "",
+          "sectionIndex": 0,
+          "progress": 0,
+          "tasks": [
+            {
+              "type": "Task",
+              "id": "082608fa-e299-4c6a-8f83-114553561369",
+              "name": "Tarea 1",
+              "description": "",
+              "grapheme": "",
+              "phoneme": "",
+              "lessonIndex": 0,
+              "progress": 0
+            },
+            {
+              "type": "Task",
+              "id": "565bc8c9-1187-470f-9dd6-96d666dac151",
+              "name": "Tarea 2",
+              "description": "",
+              "grapheme": "",
+              "phoneme": "",
+              "lessonIndex": 1,
+              "progress": 0
+            }
+          ]
+        },
+        {
+          "type": "Lesson",
+          "id": "16224610-01fd-4bd5-a204-dd52722952b3",
+          "name": "Lección 2",
+          "description": "",
+          "sectionIndex": 1,
+          "progress": 0,
+          "tasks": [
+            {
+              "type": "Task",
+              "id": "5f62edd2-4bcb-414c-8419-a497d9201da5",
+              "name": "Tarea 1",
+              "description": "",
+              "grapheme": "",
+              "phoneme": "",
+              "lessonIndex": 0,
+              "progress": 0
+            },
+            {
+              "type": "Task",
+              "id": "768a3d6d-5938-4ccc-b59f-9628e43fb059",
+              "name": "Tarea 2",
+              "description": "",
+              "grapheme": "",
+              "phoneme": "",
+              "lessonIndex": 1,
+              "progress": 0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
