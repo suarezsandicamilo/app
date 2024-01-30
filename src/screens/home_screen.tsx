@@ -32,8 +32,12 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={colors[scheme].body_bg} />
-      <TopAppBar leftIcon="menu" leftIconColor={colors[scheme].white} />
+      <StatusBar backgroundColor={colors[scheme].primary} />
+      <TopAppBar
+        title="Aplicación"
+        leftIcon="menu"
+        leftIconColor={colors[scheme].white}
+      />
       <FlatList
         data={sections}
         renderItem={({ item }) => {

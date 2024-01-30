@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
 });
 
 type Props = {
+  title: string;
   leftIcon?: string;
   leftIconColor?: string;
   rightIcon?: string;
@@ -63,7 +64,7 @@ const TopAppBar = (props: Props) => {
     <View style={styles.container}>
       <View style={styles.iconContainer}>{leftIcon}</View>
       <View style={styles.titleContainer}>
-        <Text style={styles.title}>Aplicación</Text>
+        <Text style={styles.title}>{props.title}</Text>
       </View>
       <View style={styles.iconContainer}>{rightIcon}</View>
     </View>
