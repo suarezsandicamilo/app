@@ -1,18 +1,28 @@
 //
 
-import { FlatList, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import {
+  Appearance,
+  FlatList,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+} from 'react-native';
 
 import { SectionType } from '../models/section_type';
 
-import data from './../../data/data.json';
-
 import { Section } from '../components/section';
+
+import { TopAppBar } from '../components/top_app_bar';
+
+import data from './../../data/data.json';
 
 import colors from './../colors.json';
 
+const scheme = Appearance.getColorScheme();
+
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.light.bodyBackground,
+    backgroundColor: colors[scheme].body_bg,
     flex: 1,
   },
 });
@@ -22,7 +32,12 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={colors.light.bodyBackground} />
+      <StatusBar backgroundColor={colors[scheme].primary} />
+      <TopAppBar
+        title="Aplicación"
+        leftIcon="menu"
+        leftIconColor={colors[scheme].white}
+      />
       <FlatList
         data={sections}
         renderItem={({ item }) => {

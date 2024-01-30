@@ -1,14 +1,16 @@
 //
 
-import { StyleSheet, Text, View } from 'react-native';
+import { Appearance, StyleSheet, Text, View } from 'react-native';
 
 import { TaskType } from '../models/task_type';
 
 import colors from './../colors.json';
 
+const scheme = Appearance.getColorScheme();
+
 const styles = StyleSheet.create({
   container: {
-    borderColor: colors.any.primary,
+    borderColor: colors[scheme].primary,
     borderRadius: 8,
     borderWidth: 1,
     marginBottom: 20,
