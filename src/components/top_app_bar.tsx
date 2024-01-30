@@ -1,6 +1,6 @@
 //
 
-import { Appearance, StyleSheet, Text, View } from 'react-native';
+import { Appearance, Pressable, StyleSheet, Text, View } from 'react-native';
 
 import { Icon } from '@rneui/base';
 
@@ -37,36 +37,34 @@ type Props = {
   leftIconColor?: string;
   rightIcon?: string;
   rightIconColor?: string;
+  onLeftIconPress?: () => void;
+  onRightIconPress?: () => void;
 };
 
 const TopAppBar = (props: Props) => {
   let leftIcon = <></>;
 
   if (!Object.is(props.leftIcon, null)) {
-    leftIcon = <Icon name={props.leftIcon} />;
-
-    if (!Object.is(props.leftIconColor, null)) {
-      leftIcon = <Icon name={props.leftIcon} color={props.leftIconColor} />;
-    }
+    leftIcon = <Icon name={props.leftIcon} color={props.leftIconColor} />;
   }
 
   let rightIcon = <></>;
 
   if (!Object.is(props.rightIcon, null)) {
-    rightIcon = <Icon name={props.rightIcon} />;
-
-    if (!Object.is(props.rightIconColor, null)) {
-      rightIcon = <Icon name={props.rightIcon} color={props.rightIconColor} />;
-    }
+    rightIcon = <Icon name={props.rightIcon} color={props.rightIconColor} />;
   }
 
   return (
     <View style={styles.container}>
-      <View style={styles.iconContainer}>{leftIcon}</View>
+      <View style={styles.iconContainer}>
+        <Pressable onPress={props.onLeftIconPress}>{leftIcon}</Pressable>
+      </View>
       <View style={styles.titleContainer}>
         <Text style={styles.title}>{props.title}</Text>
       </View>
-      <View style={styles.iconContainer}>{rightIcon}</View>
+      <View style={styles.iconContainer}>
+        <Pressable onPress={props.onRightIconPress}>{rightIcon}</Pressable>
+      </View>
     </View>
   );
 };
