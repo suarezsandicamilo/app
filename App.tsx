@@ -1,9 +1,10 @@
 //
 
 import { NavigationContainer } from '@react-navigation/native';
+
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { HomeScreen } from './src/screens/home_screen';
+import { PathScreen } from './src/screens/path_screen';
 
 const Stack = createNativeStackNavigator();
 
@@ -12,8 +13,8 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator>
         <Stack.Screen
-          name="Home"
-          component={HomeScreen}
+          name="Path"
+          component={PathScreen}
           options={{
             headerShown: false,
           }}

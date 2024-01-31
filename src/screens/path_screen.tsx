@@ -14,9 +14,9 @@ import { Section } from '../components/section';
 
 import { TopAppBar } from '../components/top_app_bar';
 
-import data from './../../data/data.json';
+import data from '../../data/data.json';
 
-import colors from './../colors.json';
+import colors from '../colors.json';
 
 const scheme = Appearance.getColorScheme();
 
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const HomeScreen = () => {
+const PathScreen = () => {
   const sections = data.sections as SectionType[];
 
   return (
@@ -48,4 +48,4 @@ const HomeScreen = () => {
   );
 };
 
-export { HomeScreen };
+export { PathScreen };
