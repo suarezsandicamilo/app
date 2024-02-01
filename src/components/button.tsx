@@ -42,6 +42,7 @@ const secondaryStyles = StyleSheet.create({
 });
 
 type Props = {
+  fontSize?: number;
   style?: StyleProp<ViewStyle>;
   text?: string;
   type?: 'primary' | 'secondary';
@@ -59,7 +60,16 @@ const Button = (props: Props) => {
 
   return (
     <Pressable style={[styles.container, props.style]} onPress={props.onPress}>
-      <Text style={styles.text}>{props.text}</Text>
+      <Text
+        style={[
+          styles.text,
+          {
+            fontSize: props.fontSize,
+          },
+        ]}
+      >
+        {props.text}
+      </Text>
     </Pressable>
   );
 };
