@@ -30,7 +30,7 @@ type Props = {
 };
 
 const Card = (props: Props) => {
-  return <View style={styles.container}>{props.children}</View>;
+  return <View style={[styles.container, props.style]}>{props.children}</View>;
 };
 
 export { Card };
