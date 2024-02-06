@@ -1,18 +1,16 @@
 //
 
-import { Appearance, FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 
 import { LessonType } from '../models/lesson_type';
 
 import { Task } from './task';
 
-import colors from './../colors.json';
-
-const scheme = Appearance.getColorScheme();
+import * as colors from '../colors';
 
 const styles = StyleSheet.create({
   container: {
-    borderColor: colors[scheme].primary,
+    borderColor: colors.getColor('primary'),
     borderRadius: 8,
     borderWidth: 1,
     marginBottom: 20,

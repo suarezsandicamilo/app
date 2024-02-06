@@ -1,64 +1,56 @@
 //
 
-import { Appearance, StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import { Button, Card } from '@rneui/base';
 
 import { SectionType } from '../models/section_type';
 
-import colors from '../colors.json';
-
-const scheme = Appearance.getColorScheme();
+import * as colors from '../colors';
 
 const baseStyles = StyleSheet.create({
   button: {
-    backgroundColor: colors[scheme].primary_bg_subtle,
+    backgroundColor: colors.getColor('primary_bg_subtle'),
     borderRadius: 4,
   },
   buttonContainer: {
     alignItems: 'flex-end',
   },
   buttonText: {
-    color: colors[scheme].secondary,
+    color: colors.getColor('secondary'),
     fontSize: 12,
     textTransform: 'uppercase',
   },
   container: {
-    backgroundColor:
-      scheme === 'light'
-        ? colors[scheme].body_bg
-        : colors[scheme].dark_bg_subtle,
+    backgroundColor: colors.getEitherColor('body_bg', 'dark_bg_subtle'),
     borderWidth: 0,
     marginBottom: 1,
   },
   text: {
-    color: colors[scheme].body_color,
+    color: colors.getColor('body_color'),
   },
 });
 
 const progressStyles = StyleSheet.create({
   button: {
-    backgroundColor: colors[scheme].primary,
+    backgroundColor: colors.getColor('primary'),
     borderRadius: 4,
   },
   buttonContainer: {
     alignItems: 'flex-end',
   },
   buttonText: {
-    color: colors[scheme].white,
+    color: colors.getColor('white'),
     fontSize: 12,
     textTransform: 'uppercase',
   },
   container: {
-    backgroundColor:
-      scheme === 'light'
-        ? colors[scheme].primary_bg_subtle
-        : colors[scheme].secondary_bg,
+    backgroundColor: colors.getEitherColor('primary_bg_subtle', 'secondary_bg'),
     borderWidth: 0,
     marginBottom: 1,
   },
   text: {
-    color: colors[scheme].body_color,
+    color: colors.getColor('body_color'),
   },
 });
 

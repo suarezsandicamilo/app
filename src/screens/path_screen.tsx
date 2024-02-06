@@ -1,7 +1,6 @@
 //
 
 import {
-  Appearance,
   FlatList,
   SafeAreaView,
   StatusBar,
@@ -17,18 +16,16 @@ import { SectionCard } from '../components/section_card';
 
 import data from '../../data/data.json';
 
-import colors from '../colors.json';
-
-const scheme = Appearance.getColorScheme();
+import * as colors from '../colors';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors[scheme].body_bg,
+    backgroundColor: colors.getColor('body_bg'),
     flex: 1,
   },
   header: {
-    backgroundColor: colors[scheme].primary,
-    borderColor: colors[scheme].primary,
+    backgroundColor: colors.getColor('primary'),
+    borderColor: colors.getColor('primary'),
     height: 80,
     justifyContent: 'center',
   },
@@ -37,7 +34,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   headerText: {
-    color: colors[scheme].white,
+    color: colors.getColor('white'),
     fontSize: 20,
   },
 });
@@ -48,7 +45,7 @@ const PathScreen = ({ navigation }: any) => {
   const headerIcon = (
     <Icon
       name="menu"
-      color={colors[scheme].white}
+      color={colors.getColor('white')}
       style={styles.headerIcon}
       onPress={() => {
         navigation.navigate('Home');
@@ -60,11 +57,11 @@ const PathScreen = ({ navigation }: any) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={colors[scheme].primary} />
+      <StatusBar backgroundColor={colors.getColor('primary')} />
       <Header
         containerStyle={styles.header}
         statusBarProps={{
-          backgroundColor: colors[scheme].primary,
+          backgroundColor: colors.getColor('primary'),
         }}
         leftComponent={headerIcon}
         centerComponent={headerText}
