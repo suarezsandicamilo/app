@@ -6,11 +6,13 @@ import {
   SafeAreaView,
   StatusBar,
   StyleSheet,
+  Text,
+  View,
 } from 'react-native';
 
-import { SectionType } from '../models/section_type';
+import { Header, Icon } from '@rneui/base';
 
-import { TopAppBar } from '../components/top_app_bar';
+import { SectionType } from '../models/section_type';
 
 import { SectionCard } from '../components/section_card';
 
@@ -25,21 +27,47 @@ const styles = StyleSheet.create({
     backgroundColor: colors[scheme].body_bg,
     flex: 1,
   },
+  header: {
+    backgroundColor: colors[scheme].primary,
+    height: 80,
+    justifyContent: 'center',
+  },
+  headerIcon: {
+    height: '100%',
+    justifyContent: 'center',
+  },
+  headerText: {
+    color: colors[scheme].white,
+    fontSize: 20,
+  },
 });
 
 const PathScreen = ({ navigation }: any) => {
   const sections = data.sections as SectionType[];
 
+  const headerIcon = (
+    <Icon
+      name="menu"
+      color={colors[scheme].white}
+      style={styles.headerIcon}
+      onPress={() => {
+        navigation.navigate('Home');
+      }}
+    />
+  );
+
+  const headerText = <Text style={styles.headerText}>Aplicación</Text>;
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={colors[scheme].primary} />
-      <TopAppBar
-        title="Aplicación"
-        leftIcon="menu"
-        leftIconColor={colors[scheme].white}
-        onLeftIconPress={() => {
-          navigation.navigate('Home');
+      <Header
+        containerStyle={styles.header}
+        statusBarProps={{
+          backgroundColor: colors[scheme].primary,
         }}
+        leftComponent={headerIcon}
+        centerComponent={headerText}
       />
       <FlatList
         data={sections}
