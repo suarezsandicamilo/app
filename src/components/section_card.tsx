@@ -19,13 +19,17 @@ const baseStyles = StyleSheet.create({
     alignItems: 'flex-end',
   },
   buttonText: {
-    color: colors[scheme].black,
+    color: colors[scheme].secondary,
     fontSize: 12,
     textTransform: 'uppercase',
   },
   container: {
-    backgroundColor: colors[scheme].body_bg,
-    borderRadius: 4,
+    backgroundColor:
+      scheme === 'light'
+        ? colors[scheme].body_bg
+        : colors[scheme].dark_bg_subtle,
+    borderWidth: 0,
+    marginBottom: 1,
   },
   text: {
     color: colors[scheme].body_color,
@@ -33,10 +37,6 @@ const baseStyles = StyleSheet.create({
 });
 
 const progressStyles = StyleSheet.create({
-  container: {
-    backgroundColor: colors[scheme].primary_bg_subtle,
-    borderRadius: 4,
-  },
   button: {
     backgroundColor: colors[scheme].primary,
     borderRadius: 4,
@@ -48,6 +48,14 @@ const progressStyles = StyleSheet.create({
     color: colors[scheme].white,
     fontSize: 12,
     textTransform: 'uppercase',
+  },
+  container: {
+    backgroundColor:
+      scheme === 'light'
+        ? colors[scheme].primary_bg_subtle
+        : colors[scheme].secondary_bg,
+    borderWidth: 0,
+    marginBottom: 1,
   },
   text: {
     color: colors[scheme].body_color,

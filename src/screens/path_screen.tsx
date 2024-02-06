@@ -7,7 +7,6 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  View,
 } from 'react-native';
 
 import { Header, Icon } from '@rneui/base';
@@ -29,6 +28,7 @@ const styles = StyleSheet.create({
   },
   header: {
     backgroundColor: colors[scheme].primary,
+    borderColor: colors[scheme].primary,
     height: 80,
     justifyContent: 'center',
   },
