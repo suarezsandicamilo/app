@@ -2,27 +2,30 @@
 
 import { Appearance, StyleSheet, Text, View } from 'react-native';
 
+import { Button, Card } from '@rneui/base';
+
 import { SectionType } from '../models/section_type';
-
-import { Button } from './button';
-
-import { Card } from './card';
 
 import colors from '../colors.json';
 
 const scheme = Appearance.getColorScheme();
-// const scheme = 'dark';
 
 const baseStyles = StyleSheet.create({
-  container: {
-    backgroundColor: colors[scheme].body_bg,
-  },
   button: {
-    marginTop: 20,
-    padding: 10,
+    backgroundColor: colors[scheme].primary_bg_subtle,
+    borderRadius: 4,
   },
   buttonContainer: {
     alignItems: 'flex-end',
+  },
+  buttonText: {
+    color: colors[scheme].black,
+    fontSize: 12,
+    textTransform: 'uppercase',
+  },
+  container: {
+    backgroundColor: colors[scheme].body_bg,
+    borderRadius: 4,
   },
   text: {
     color: colors[scheme].body_color,
@@ -32,13 +35,19 @@ const baseStyles = StyleSheet.create({
 const progressStyles = StyleSheet.create({
   container: {
     backgroundColor: colors[scheme].primary_bg_subtle,
+    borderRadius: 4,
   },
   button: {
-    marginTop: 20,
-    padding: 10,
+    backgroundColor: colors[scheme].primary,
+    borderRadius: 4,
   },
   buttonContainer: {
     alignItems: 'flex-end',
+  },
+  buttonText: {
+    color: colors[scheme].white,
+    fontSize: 12,
+    textTransform: 'uppercase',
   },
   text: {
     color: colors[scheme].body_color,
@@ -47,25 +56,20 @@ const progressStyles = StyleSheet.create({
 
 const SectionCard = (section: SectionType) => {
   let styles = baseStyles;
-  let buttonType = 'secondary' as any;
   let buttonText = 'Avanzar';
 
   if (section.progress > 0) {
     styles = progressStyles;
-    buttonType = 'primary';
     buttonText = 'Continuar';
   }
 
   return (
-    <Card style={styles.container}>
+    <Card containerStyle={styles.container}>
       <Text style={styles.text}>{section.name}</Text>
       <View style={styles.buttonContainer}>
-        <Button
-          fontSize={12}
-          style={styles.button}
-          text={buttonText}
-          type={buttonType}
-        />
+        <Button buttonStyle={styles.button}>
+          <Text style={styles.buttonText}>{buttonText}</Text>
+        </Button>
       </View>
     </Card>
   );
