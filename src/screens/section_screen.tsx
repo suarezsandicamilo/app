@@ -14,14 +14,17 @@ import { Header, Icon } from '@rneui/base';
 
 import { SectionType } from '../models/section_type';
 
-import { SectionCard } from '../components/section_card';
-
 import { ThemeContext, getColor } from '../colors';
 
-import data from '../../data/data.json';
+type Props = {
+  navigation: any;
+  route: any;
+};
 
-const PathScreen = ({ navigation }: any) => {
+const SectionScreen = ({ navigation, route }: Props) => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
+
+  const section = route.params.section as SectionType;
 
   const styles = StyleSheet.create({
     container: {
@@ -44,15 +47,13 @@ const PathScreen = ({ navigation }: any) => {
     },
   });
 
-  const sections = data.sections as SectionType[];
-
   const headerIcon = (
     <Icon
-      name="menu"
+      name="arrow-back"
       color={getColor(theme, 'white')}
       style={styles.headerIcon}
       onPress={() => {
-        navigation.navigate('Home');
+        navigation.goBack();
       }}
     />
   );
@@ -72,7 +73,7 @@ const PathScreen = ({ navigation }: any) => {
     />
   );
 
-  const headerText = <Text style={styles.headerText}>Aplicación</Text>;
+  const headerText = <Text style={styles.headerText}>{section.name}</Text>;
 
   return (
     <ThemeContext.Provider value={theme}>
@@ -87,21 +88,9 @@ const PathScreen = ({ navigation }: any) => {
           centerComponent={headerText}
           rightComponent={rightIcon}
         />
-        <FlatList
-          data={sections}
-          renderItem={({ item }) => {
-            return (
-              <SectionCard
-                key={item.id}
-                section={item}
-                navigation={navigation}
-              />
-            );
-          }}
-        />
       </SafeAreaView>
     </ThemeContext.Provider>
   );
 };
 
-export { PathScreen };
+export { SectionScreen };
