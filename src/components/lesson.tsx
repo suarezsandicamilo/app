@@ -6,23 +6,25 @@ import { LessonType } from '../models/lesson_type';
 
 import { Task } from './task';
 
-import * as colors from '../colors';
-
-const styles = StyleSheet.create({
-  container: {
-    borderColor: colors.getColor('primary'),
-    borderRadius: 8,
-    borderWidth: 1,
-    marginBottom: 20,
-    padding: 20,
-    paddingBottom: 10,
-  },
-  text: {
-    marginBottom: 20,
-  },
-});
+import { useTheme } from '../colors';
 
 const Lesson = (lesson: LessonType) => {
+  const { getColor } = useTheme();
+
+  const styles = StyleSheet.create({
+    container: {
+      borderColor: getColor('primary'),
+      borderRadius: 8,
+      borderWidth: 1,
+      marginBottom: 20,
+      padding: 20,
+      paddingBottom: 10,
+    },
+    text: {
+      marginBottom: 20,
+    },
+  });
+
   return (
     <View style={styles.container}>
       <Text style={styles.text}>{lesson.name}</Text>

@@ -1,5 +1,7 @@
 //
 
+import { useState } from 'react';
+
 import {
   FlatList,
   SafeAreaView,
@@ -14,38 +16,40 @@ import { SectionType } from '../models/section_type';
 
 import { SectionCard } from '../components/section_card';
 
+import { ThemeContext, getColor } from '../colors';
+
 import data from '../../data/data.json';
 
-import * as colors from '../colors';
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors.getColor('body_bg'),
-    flex: 1,
-  },
-  header: {
-    backgroundColor: colors.getColor('primary'),
-    borderColor: colors.getColor('primary'),
-    height: 80,
-    justifyContent: 'center',
-  },
-  headerIcon: {
-    height: '100%',
-    justifyContent: 'center',
-  },
-  headerText: {
-    color: colors.getColor('white'),
-    fontSize: 20,
-  },
-});
-
 const PathScreen = ({ navigation }: any) => {
+  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+
+  const styles = StyleSheet.create({
+    container: {
+      backgroundColor: getColor(theme, 'body_bg'),
+      flex: 1,
+    },
+    header: {
+      backgroundColor: getColor(theme, 'primary'),
+      borderColor: getColor(theme, 'primary'),
+      height: 80,
+      justifyContent: 'center',
+    },
+    headerIcon: {
+      height: '100%',
+      justifyContent: 'center',
+    },
+    headerText: {
+      color: getColor(theme, 'white'),
+      fontSize: 20,
+    },
+  });
+
   const sections = data.sections as SectionType[];
 
   const headerIcon = (
     <Icon
       name="menu"
-      color={colors.getColor('white')}
+      color={getColor(theme, 'white')}
       style={styles.headerIcon}
       onPress={() => {
         navigation.navigate('Home');
@@ -53,26 +57,44 @@ const PathScreen = ({ navigation }: any) => {
     />
   );
 
+  const rightIcon = (
+    <Icon
+      name="star"
+      color={getColor(theme, 'white')}
+      style={styles.headerIcon}
+      onPress={() => {
+        if (theme === 'light') {
+          setTheme('dark');
+        } else {
+          setTheme('light');
+        }
+      }}
+    />
+  );
+
   const headerText = <Text style={styles.headerText}>Aplicación</Text>;
 
   return (
-    <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={colors.getColor('primary')} />
-      <Header
-        containerStyle={styles.header}
-        statusBarProps={{
-          backgroundColor: colors.getColor('primary'),
-        }}
-        leftComponent={headerIcon}
-        centerComponent={headerText}
-      />
-      <FlatList
-        data={sections}
-        renderItem={({ item }) => {
-          return <SectionCard key={item.id} {...item} />;
-        }}
-      />
-    </SafeAreaView>
+    <ThemeContext.Provider value={theme}>
+      <SafeAreaView style={styles.container}>
+        <StatusBar backgroundColor={getColor(theme, 'primary')} />
+        <Header
+          containerStyle={styles.header}
+          statusBarProps={{
+            backgroundColor: getColor(theme, 'primary'),
+          }}
+          leftComponent={headerIcon}
+          centerComponent={headerText}
+          rightComponent={rightIcon}
+        />
+        <FlatList
+          data={sections}
+          renderItem={({ item }) => {
+            return <SectionCard key={item.id} {...item} />;
+          }}
+        />
+      </SafeAreaView>
+    </ThemeContext.Provider>
   );
 };
 

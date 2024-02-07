@@ -1,6 +1,6 @@
 //
 
-import { Appearance } from 'react-native';
+import { createContext, useContext } from 'react';
 
 const data = {
   light: {
@@ -155,35 +155,53 @@ const data = {
   },
 };
 
-type key = keyof (typeof data)[keyof typeof data];
+type ThemeType = keyof typeof data;
+
+type KeyType = keyof (typeof data)[ThemeType];
 
 /**
- * Returns a color according to the key and the current scheme.
+ * Returns a color according to the key and the current theme.
  *
+ * @param theme The theme.
  * @param key The color key.
  * @returns A color.
  */
-const getColor = (key: key) => {
-  return data[Appearance.getColorScheme()][key];
+const getColor = (theme: ThemeType, key: KeyType) => {
+  return data[theme][key];
 };
 
 /**
- * Returns the light color or the dark color according to the respective key and the current scheme.
+ * Returns the light color or the dark color according to the respective key and the current theme.
  *
- * @param lightKey The light color key.
- * @param darkKey The dark color key.
+ * @param theme The theme.
+ * @param light The light color key.
+ * @param dark The dark color key.
  * @returns A color.
  */
-const getEitherColor = (lightKey: key, darkKey: key) => {
-  const scheme = Appearance.getColorScheme();
-
-  if (scheme === 'light') {
-    return data[scheme][lightKey];
+const getEitherColor = (theme: ThemeType, light: KeyType, dark: KeyType) => {
+  if (theme === 'light') {
+    return data[theme][light];
   }
 
-  if (scheme === 'dark') {
-    return data[scheme][darkKey];
+  if (theme === 'dark') {
+    return data[theme][dark];
   }
 };
 
-export { getColor, getEitherColor };
+const ThemeContext = createContext<ThemeType>('light');
+
+const useTheme = () => {
+  const theme = useContext(ThemeContext);
+
+  return {
+    theme,
+    getColor: (key: KeyType) => {
+      return getColor(theme, key);
+    },
+    getEitherColor: (light: KeyType, dark: KeyType) => {
+      return getEitherColor(theme, light, dark);
+    },
+  };
+};
+
+export { ThemeContext, useTheme, getColor, getEitherColor };
