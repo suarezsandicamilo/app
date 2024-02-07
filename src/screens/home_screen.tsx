@@ -1,34 +1,43 @@
 //
 
-import { Appearance, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet, Text } from 'react-native';
 
-import { Button } from '../components/button';
+import { Button } from '@rneui/base';
 
-import colors from '../colors.json';
-
-const scheme = Appearance.getColorScheme();
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: colors[scheme].body_bg,
-    flex: 1,
-    justifyContent: 'center',
-  },
-});
+import { useTheme } from '../colors';
 
 const HomeScreen = ({ navigation }: any) => {
+  const { getColor } = useTheme();
+
+  const styles = StyleSheet.create({
+    button: {
+      backgroundColor: getColor('primary'),
+      borderRadius: 4,
+      margin: 80,
+      padding: 20,
+    },
+    buttonText: {
+      color: getColor('white'),
+      textTransform: 'uppercase',
+    },
+    container: {
+      backgroundColor: getColor('body_bg'),
+      flex: 1,
+      justifyContent: 'center',
+    },
+  });
+
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={colors[scheme].primary} />
+      <StatusBar backgroundColor={getColor('primary')} />
       <Button
-        text="Entrar"
+        buttonStyle={styles.button}
         onPress={() => {
           navigation.navigate('Path');
         }}
-        style={{
-          margin: 80,
-        }}
-      />
+      >
+        <Text style={styles.buttonText}>Entrar</Text>
+      </Button>
     </SafeAreaView>
   );
 };

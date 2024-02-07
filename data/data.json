@@ -6,7 +6,7 @@
       "name": "Sección 1",
       "description": "",
       "pathIndex": 0,
-      "progress": 0,
+      "progress": 1,
       "lessons": [
         {
           "type": "Lesson",
