@@ -12,11 +12,13 @@ class SectionsController {
   }
 
   static async write(sections: SectionType[]) {
-    await DataController.write(
-      JSON.stringify({
-        sections,
-      })
-    );
+    const contents = await DataController.read();
+
+    const data = JSON.parse(contents);
+
+    data.sections = sections;
+
+    await DataController.write(JSON.stringify(data));
   }
 }
 
