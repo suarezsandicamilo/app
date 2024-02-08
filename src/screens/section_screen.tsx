@@ -10,7 +10,7 @@ import {
   Text,
 } from 'react-native';
 
-import { Header, Icon } from '@rneui/base';
+import { FAB, Header, Icon } from '@rneui/base';
 
 import { SectionType } from '../models/section_type';
 
@@ -24,12 +24,17 @@ type Props = {
 const SectionScreen = ({ navigation, route }: Props) => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
-  const section = route.params.section as SectionType;
+  const { section } = route.params as {
+    section: SectionType;
+  };
 
   const styles = StyleSheet.create({
     container: {
       backgroundColor: getColor(theme, 'body_bg'),
       flex: 1,
+    },
+    fab: {
+      marginTop: 20,
     },
     header: {
       backgroundColor: getColor(theme, 'primary'),
@@ -87,6 +92,16 @@ const SectionScreen = ({ navigation, route }: Props) => {
           leftComponent={headerIcon}
           centerComponent={headerText}
           rightComponent={rightIcon}
+        />
+        <FlatList
+          data={section.lessons}
+          renderItem={({ item }) => {
+            return (
+              <FAB color={getColor(theme, 'primary')} style={styles.fab}>
+                <Icon name="star" color={getColor(theme, 'white')} />
+              </FAB>
+            );
+          }}
         />
       </SafeAreaView>
     </ThemeContext.Provider>
