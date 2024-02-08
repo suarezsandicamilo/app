@@ -22,6 +22,14 @@ class DataController {
   static async write(contents: string) {
     await FileSystem.writeAsStringAsync(path, contents);
   }
+
+  static async clear() {
+    const { exists } = await FileSystem.getInfoAsync(path);
+
+    if (exists) {
+      FileSystem.deleteAsync(path);
+    }
+  }
 }
 
 export { DataController };

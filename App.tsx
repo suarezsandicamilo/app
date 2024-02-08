@@ -19,6 +19,9 @@ const Stack = createNativeStackNavigator();
 const App = () => {
   useEffect(() => {
     (async () => {
+      // NOTE: IF DEVELOPMENT
+      await DataController.clear();
+
       await DataController.start();
     })();
   }, []);
