@@ -6,19 +6,11 @@ import { DataController } from './data_controller';
 
 class SectionsController {
   static async read() {
-    const contents = await DataController.read();
-
-    return JSON.parse(contents).sections as SectionType[];
+    return await DataController.read<SectionType[]>('sections');
   }
 
   static async write(sections: SectionType[]) {
-    const contents = await DataController.read();
-
-    const data = JSON.parse(contents);
-
-    data.sections = sections;
-
-    await DataController.write(JSON.stringify(data));
+    await DataController.write('sections', sections);
   }
 }
 

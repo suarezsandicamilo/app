@@ -20,11 +20,11 @@ const App = () => {
   useEffect(() => {
     (async () => {
       // NOTE: IF DEVELOPMENT
-      await DataController.clear();
+      await DataController.clear('sections');
 
-      await DataController.start();
+      await DataController.start(true);
     })();
-  }, []);
+  });
 
   return (
     <NavigationContainer>

@@ -7,28 +7,44 @@ import data from './../../data/data.json';
 const path = FileSystem.documentDirectory + 'data.json';
 
 class DataController {
-  static async start() {
+  static async start(force = false) {
     const { exists } = await FileSystem.getInfoAsync(path);
 
-    if (!exists) {
+    if (!exists || (exists && force)) {
       FileSystem.writeAsStringAsync(path, JSON.stringify(data));
     }
   }
 
-  static async read() {
-    return await FileSystem.readAsStringAsync(path);
+  static async read<T = any>(key: string) {
+    let contents = await FileSystem.readAsStringAsync(path);
+
+    contents = JSON.parse(contents);
+
+    return contents[key] as T;
   }
 
-  static async write(contents: string) {
+  static async write<T>(key: string, data: T) {
+    let contents = await FileSystem.readAsStringAsync(path);
+
+    contents = JSON.parse(contents);
+
+    contents[key] = data;
+
+    contents = JSON.stringify(contents);
+
     await FileSystem.writeAsStringAsync(path, contents);
   }
 
-  static async clear() {
-    const { exists } = await FileSystem.getInfoAsync(path);
+  static async clear(key: string) {
+    let contents = await FileSystem.readAsStringAsync(path);
 
-    if (exists) {
-      FileSystem.deleteAsync(path);
-    }
+    contents = JSON.parse(contents);
+
+    contents[key] = null;
+
+    contents = JSON.stringify(contents);
+
+    await FileSystem.writeAsStringAsync(path, contents);
   }
 }
 
