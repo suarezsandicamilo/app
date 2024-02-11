@@ -34,7 +34,7 @@ const SectionScreen = ({ navigation, route }: Props) => {
       flex: 1,
     },
     fab: {
-      marginTop: 20,
+      marginTop: 60,
     },
     header: {
       backgroundColor: getColor(theme, 'primary'),
@@ -80,6 +80,8 @@ const SectionScreen = ({ navigation, route }: Props) => {
 
   const headerText = <Text style={styles.headerText}>{section.name}</Text>;
 
+  const difference = (2 * Math.PI) / 8;
+
   return (
     <ThemeContext.Provider value={theme}>
       <SafeAreaView style={styles.container}>
@@ -97,7 +99,15 @@ const SectionScreen = ({ navigation, route }: Props) => {
           data={section.lessons}
           renderItem={({ item }) => {
             return (
-              <FAB color={getColor(theme, 'primary')} style={styles.fab}>
+              <FAB
+                color={getColor(theme, 'primary')}
+                style={[
+                  styles.fab,
+                  {
+                    right: Math.sin(difference * item.sectionIndex) * 64,
+                  },
+                ]}
+              >
                 <Icon name="star" color={getColor(theme, 'white')} />
               </FAB>
             );
