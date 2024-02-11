@@ -8,7 +8,12 @@ import { SectionType } from '../models/section_type';
 
 import { useTheme } from '../colors';
 
-const SectionCard = (section: SectionType) => {
+type Props = {
+  section: SectionType;
+  navigation: any;
+};
+
+const SectionCard = ({ section, navigation }: Props) => {
   const { getColor, getEitherColor } = useTheme();
 
   const baseStyles = StyleSheet.create({
@@ -69,7 +74,14 @@ const SectionCard = (section: SectionType) => {
     <Card containerStyle={styles.container}>
       <Text style={styles.text}>{section.name}</Text>
       <View style={styles.buttonContainer}>
-        <Button buttonStyle={styles.button}>
+        <Button
+          buttonStyle={styles.button}
+          onPress={() => {
+            navigation.navigate('Section', {
+              section,
+            });
+          }}
+        >
           <Text style={styles.buttonText}>{buttonText}</Text>
         </Button>
       </View>

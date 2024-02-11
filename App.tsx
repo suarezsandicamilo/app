@@ -8,6 +8,8 @@ import { HomeScreen } from './src/screens/home_screen';
 
 import { PathScreen } from './src/screens/path_screen';
 
+import { SectionScreen } from './src/screens/section_screen';
+
 const Stack = createNativeStackNavigator();
 
 const App = () => {
@@ -20,14 +22,21 @@ const App = () => {
           options={{
             headerShown: false,
           }}
-        ></Stack.Screen>
+        />
         <Stack.Screen
           name="Path"
           component={PathScreen}
           options={{
             headerShown: false,
           }}
-        ></Stack.Screen>
+        />
+        <Stack.Screen
+          name="Section"
+          component={SectionScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
