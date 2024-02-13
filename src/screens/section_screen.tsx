@@ -10,9 +10,11 @@ import {
   Text,
 } from 'react-native';
 
-import { FAB, Header, Icon } from '@rneui/base';
+import { Header, Icon } from '@rneui/base';
 
 import { SectionType } from '../models/section_type';
+
+import { LessonFab } from '../components/lesson_fab';
 
 import { ThemeContext, getColor } from '../colors';
 
@@ -34,7 +36,7 @@ const SectionScreen = ({ navigation, route }: Props) => {
       flex: 1,
     },
     fab: {
-      marginTop: 20,
+      marginTop: 60,
     },
     header: {
       backgroundColor: getColor(theme, 'primary'),
@@ -96,11 +98,7 @@ const SectionScreen = ({ navigation, route }: Props) => {
         <FlatList
           data={section.lessons}
           renderItem={({ item }) => {
-            return (
-              <FAB color={getColor(theme, 'primary')} style={styles.fab}>
-                <Icon name="star" color={getColor(theme, 'white')} />
-              </FAB>
-            );
+            return <LessonFab lesson={item} navigation={navigation} />;
           }}
         />
       </SafeAreaView>

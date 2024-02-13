@@ -1,6 +1,6 @@
 //
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   FlatList,
@@ -16,12 +16,20 @@ import { SectionType } from '../models/section_type';
 
 import { SectionCard } from '../components/section_card';
 
-import { ThemeContext, getColor } from '../colors';
+import { SectionsController } from '../controllers/sections_controller';
 
-import data from '../../data/data.json';
+import { ThemeContext, getColor } from '../colors';
 
 const PathScreen = ({ navigation }: any) => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
+
+  const [sections, setSections] = useState<SectionType[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      setSections(await SectionsController.read());
+    })();
+  }, []);
 
   const styles = StyleSheet.create({
     container: {
@@ -43,8 +51,6 @@ const PathScreen = ({ navigation }: any) => {
       fontSize: 20,
     },
   });
-
-  const sections = data.sections as SectionType[];
 
   const headerIcon = (
     <Icon
