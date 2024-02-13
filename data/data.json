@@ -14,7 +14,7 @@
           "name": "Lección 1",
           "description": "",
           "sectionIndex": 0,
-          "progress": 0,
+          "progress": 2,
           "tasks": [
             {
               "type": "Task",
@@ -44,7 +44,7 @@
           "name": "Lección 2",
           "description": "",
           "sectionIndex": 1,
-          "progress": 0,
+          "progress": 1,
           "tasks": [
             {
               "type": "Task",

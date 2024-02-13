@@ -10,9 +10,11 @@ import {
   Text,
 } from 'react-native';
 
-import { FAB, Header, Icon } from '@rneui/base';
+import { Header, Icon } from '@rneui/base';
 
 import { SectionType } from '../models/section_type';
+
+import { LessonFab } from '../components/lesson_fab';
 
 import { ThemeContext, getColor } from '../colors';
 
@@ -80,8 +82,6 @@ const SectionScreen = ({ navigation, route }: Props) => {
 
   const headerText = <Text style={styles.headerText}>{section.name}</Text>;
 
-  const difference = (2 * Math.PI) / 8;
-
   return (
     <ThemeContext.Provider value={theme}>
       <SafeAreaView style={styles.container}>
@@ -98,19 +98,7 @@ const SectionScreen = ({ navigation, route }: Props) => {
         <FlatList
           data={section.lessons}
           renderItem={({ item }) => {
-            return (
-              <FAB
-                color={getColor(theme, 'primary')}
-                style={[
-                  styles.fab,
-                  {
-                    right: Math.sin(difference * item.sectionIndex) * 64,
-                  },
-                ]}
-              >
-                <Icon name="star" color={getColor(theme, 'white')} />
-              </FAB>
-            );
+            return <LessonFab lesson={item} navigation={navigation} />;
           }}
         />
       </SafeAreaView>
