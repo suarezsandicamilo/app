@@ -37,7 +37,7 @@ const CodeView = ({ text }: Props) => {
     <View style={styles.container}>
       {lines.map((line, index) => {
         return (
-          <Text numberOfLines={1}>
+          <Text key={index} numberOfLines={1}>
             <Text style={styles.indexText}>
               {`${index + 1}`.padEnd(3, ' ')}
             </Text>
