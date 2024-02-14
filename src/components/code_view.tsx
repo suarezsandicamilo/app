@@ -19,8 +19,13 @@ const CodeView = ({ text }: Props) => {
       margin: 10,
       padding: 10,
     },
-    text: {
+    codeText: {
       color: getColor('white'),
+      fontFamily: 'monospace',
+      fontSize: 10,
+    },
+    indexText: {
+      color: getColor('gray'),
       fontFamily: 'monospace',
       fontSize: 10,
     },
@@ -32,8 +37,11 @@ const CodeView = ({ text }: Props) => {
     <View style={styles.container}>
       {lines.map((line, index) => {
         return (
-          <Text numberOfLines={1} style={styles.text}>
-            {`${index + 1}`.padEnd(3, ' ') + ` ${line}`}
+          <Text numberOfLines={1}>
+            <Text style={styles.indexText}>
+              {`${index + 1}`.padEnd(3, ' ')}
+            </Text>
+            <Text style={styles.codeText}>{` ${line}`}</Text>
           </Text>
         );
       })}
