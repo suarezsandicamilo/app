@@ -52,6 +52,16 @@ const AdminScreen = ({ navigation }: any) => {
       color: getColor(theme, 'white'),
       fontSize: 20,
     },
+    title: {
+      borderBottomColor: getColor(theme, 'border_color'),
+      borderBottomWidth: 1,
+      color: getColor(theme, 'body_color'),
+      fontSize: 20,
+      marginHorizontal: 20,
+      marginVertical: 10,
+      paddingHorizontal: 0,
+      paddingVertical: 10,
+    },
   });
 
   const headerIcon = (
@@ -96,6 +106,10 @@ const AdminScreen = ({ navigation }: any) => {
           rightComponent={rightIcon}
         />
         <ScrollView>
+          <Text style={styles.title}>Secciones</Text>
+          <Text style={styles.title}>Lecciones</Text>
+          <Text style={styles.title}>Tareas</Text>
+          <Text style={styles.title}>Datos</Text>
           <CodeView text={data} />
         </ScrollView>
       </SafeAreaView>
