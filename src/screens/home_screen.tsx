@@ -38,6 +38,14 @@ const HomeScreen = ({ navigation }: any) => {
       >
         <Text style={styles.buttonText}>Entrar</Text>
       </Button>
+      <Button
+        buttonStyle={styles.button}
+        onPress={() => {
+          navigation.navigate('Admin');
+        }}
+      >
+        <Text style={styles.buttonText}>Administrador</Text>
+      </Button>
     </SafeAreaView>
   );
 };

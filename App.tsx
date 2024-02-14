@@ -10,6 +10,8 @@ import { HomeScreen } from './src/screens/home_screen';
 
 import { PathScreen } from './src/screens/path_screen';
 
+import { AdminScreen } from './src/screens/admin_screen';
+
 import { SectionScreen } from './src/screens/section_screen';
 
 import { DataController } from './src/controllers/data_controller';
@@ -39,6 +41,13 @@ const App = () => {
         <Stack.Screen
           name="Path"
           component={PathScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Admin"
+          component={AdminScreen}
           options={{
             headerShown: false,
           }}
