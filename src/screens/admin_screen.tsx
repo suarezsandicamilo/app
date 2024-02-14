@@ -8,12 +8,13 @@ import {
   StatusBar,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from 'react-native';
 
 import { Picker } from '@react-native-picker/picker';
 
-import { Header, Icon } from '@rneui/base';
+import { Button, Header, Icon } from '@rneui/base';
 
 import { LessonType } from '../models/lesson_type';
 
@@ -44,6 +45,13 @@ const AdminScreen = ({ navigation }: any) => {
 
   const [selectedTask, setSelectedTask] = useState<TaskType>();
 
+  // TODO: Move to another component
+
+  // Form Data
+
+  const [formSectionName, setFormSectionName] = useState('');
+  const [formSectionDescription, setFormSectionDescription] = useState('');
+
   useEffect(() => {
     (async () => {
       let sections = await SectionsController.read();
@@ -67,9 +75,30 @@ const AdminScreen = ({ navigation }: any) => {
   }, [selectedLesson]);
 
   const styles = StyleSheet.create({
+    button: {
+      backgroundColor: getColor(theme, 'primary'),
+      borderRadius: 4,
+      marginHorizontal: 80,
+      padding: 10,
+    },
+    buttonText: {
+      color: getColor(theme, 'white'),
+      textTransform: 'uppercase',
+    },
     container: {
       backgroundColor: getColor(theme, 'body_bg'),
       flex: 1,
+    },
+    form: {
+      margin: 20,
+    },
+    formTextInput: {
+      borderColor: getColor(theme, 'border_color'),
+      borderRadius: 4,
+      borderWidth: 1,
+      height: 40,
+      marginBottom: 10,
+      padding: 10,
     },
     header: {
       backgroundColor: getColor(theme, 'primary'),
@@ -84,6 +113,9 @@ const AdminScreen = ({ navigation }: any) => {
     headerText: {
       color: getColor(theme, 'white'),
       fontSize: 20,
+    },
+    picker: {
+      color: getColor(theme, 'body_color'),
     },
     pickerContainer: {
       marginHorizontal: 20,
@@ -146,6 +178,7 @@ const AdminScreen = ({ navigation }: any) => {
           <Text style={styles.title}>Secciones</Text>
           <View style={styles.pickerContainer}>
             <Picker
+              style={styles.picker}
               selectedValue={selectedSection}
               onValueChange={(section) => {
                 setSelectedSection(section);
@@ -162,9 +195,44 @@ const AdminScreen = ({ navigation }: any) => {
               })}
             </Picker>
           </View>
+          <View style={styles.form}>
+            <TextInput
+              style={styles.formTextInput}
+              placeholder="Nombre"
+              placeholderTextColor={getColor(theme, 'body_color')}
+              onChangeText={setFormSectionName}
+            />
+            <TextInput
+              style={styles.formTextInput}
+              placeholder="Descripción"
+              placeholderTextColor={getColor(theme, 'body_color')}
+              onChangeText={setFormSectionDescription}
+            />
+            <Button
+              buttonStyle={styles.button}
+              onPress={() => {
+                if (
+                  formSectionName.length > 0 &&
+                  formSectionDescription.length > 0
+                ) {
+                  SectionsController.create(
+                    formSectionName,
+                    formSectionDescription
+                  ).then((s) => {
+                    console.log(`Section ${s.name} created!`);
+                  }).catch((e) => {
+                    console.log(`Error: ${e}!`);
+                  });
+                }
+              }}
+            >
+              <Text style={styles.buttonText}>Crear Sección</Text>
+            </Button>
+          </View>
           <Text style={styles.title}>Lecciones</Text>
           <View style={styles.pickerContainer}>
             <Picker
+              style={styles.picker}
               selectedValue={selectedLesson}
               onValueChange={(lesson) => {
                 setSelectedLesson(lesson);
@@ -184,6 +252,7 @@ const AdminScreen = ({ navigation }: any) => {
           <Text style={styles.title}>Tareas</Text>
           <View style={styles.pickerContainer}>
             <Picker
+              style={styles.picker}
               selectedValue={selectedTask}
               onValueChange={(task) => {
                 setSelectedTask(task);
