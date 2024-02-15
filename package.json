@@ -24,7 +24,8 @@
     "react-native-web": "~0.19.6",
     "expo-file-system": "~16.0.6",
     "@react-native-picker/picker": "2.6.1",
-    "expo-crypto": "~12.8.0"
+    "expo-crypto": "~12.8.0",
+    "expo-clipboard": "~5.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
