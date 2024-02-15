@@ -1,78 +1,83 @@
 //
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { SafeAreaView, StatusBar, StyleSheet, Text } from 'react-native';
+import {
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  TextInput,
+  View,
+} from 'react-native';
 
-import { Header, Icon } from '@rneui/base';
+import { SectionType } from '../models/section_type';
+
+import { AppButton } from '../components/app_button';
+
+import { AppHeader } from '../components/app_header';
+
+import { SectionsController } from '../controllers/sections_controller';
 
 import { ThemeContext, getColor } from '../colors';
 
 const CreateSectionScreen = ({ navigation }: any) => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
+  const [sections, setSections] = useState<SectionType[]>([]);
+
+  useEffect(() => {
+    (async () => {
+      let sections = await SectionsController.read();
+
+      setSections(sections);
+    })();
+  }, []);
+
   const styles = StyleSheet.create({
     container: {
       backgroundColor: getColor(theme, 'body_bg'),
       flex: 1,
     },
-    header: {
-      backgroundColor: getColor(theme, 'primary'),
-      borderColor: getColor(theme, 'primary'),
-      height: 80,
-      justifyContent: 'center',
+    form: {
+      margin: 20,
     },
-    headerIcon: {
-      height: '100%',
-      justifyContent: 'center',
-    },
-    headerText: {
-      color: getColor(theme, 'white'),
-      fontSize: 20,
+    formTextInput: {
+      borderColor: getColor(theme, 'border_color'),
+      borderRadius: 4,
+      borderWidth: 1,
+      height: 40,
+      marginBottom: 10,
+      padding: 10,
     },
   });
-
-  const headerIcon = (
-    <Icon
-      name="arrow-back"
-      color={getColor(theme, 'white')}
-      style={styles.headerIcon}
-      onPress={() => {
-        navigation.navigate('Admin');
-      }}
-    />
-  );
-
-  const rightIcon = (
-    <Icon
-      name="star"
-      color={getColor(theme, 'white')}
-      style={styles.headerIcon}
-      onPress={() => {
-        if (theme === 'light') {
-          setTheme('dark');
-        } else {
-          setTheme('light');
-        }
-      }}
-    />
-  );
-
-  const headerText = <Text style={styles.headerText}>Aplicación</Text>;
 
   return (
     <ThemeContext.Provider value={theme}>
       <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor={getColor(theme, 'primary')} />
-        <Header
-          containerStyle={styles.header}
-          statusBarProps={{
-            backgroundColor: getColor(theme, 'primary'),
+        <AppHeader
+          text="Crear Sección"
+          leftIcon="arrow-back"
+          onLeftIconPress={() => {
+            navigation.goBack();
           }}
-          leftComponent={headerIcon}
-          centerComponent={headerText}
-          rightComponent={rightIcon}
+          onRightIconPress={() => {
+            setTheme(theme === 'light' ? 'dark' : 'light');
+          }}
         />
+        <View style={styles.form}>
+          <TextInput
+            style={styles.formTextInput}
+            placeholder="Nombre"
+            placeholderTextColor={getColor(theme, 'body_color')}
+          />
+          <TextInput
+            style={styles.formTextInput}
+            placeholder="Descripción"
+            placeholderTextColor={getColor(theme, 'body_color')}
+          />
+          <AppButton text="Enviar" />
+        </View>
       </SafeAreaView>
     </ThemeContext.Provider>
   );

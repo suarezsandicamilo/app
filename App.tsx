@@ -20,6 +20,8 @@ import { CreateLessonScreen } from './src/screens/create_lesson_screen';
 
 import { CreateTaskScreen } from './src/screens/create_task_screen';
 
+import { DataScreen } from './src/screens/data_screen';
+
 import { DataController } from './src/controllers/data_controller';
 
 const Stack = createNativeStackNavigator();
@@ -83,6 +85,13 @@ const App = () => {
         <Stack.Screen
           name="CreateTask"
           component={CreateTaskScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="Data"
+          component={DataScreen}
           options={{
             headerShown: false,
           }}
