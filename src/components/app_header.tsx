@@ -45,7 +45,7 @@ const AppHeader = (props: Props) => {
 
   const rightIcon = (
     <Icon
-      name={props.leftIcon ?? 'star'}
+      name={props.rightIcon ?? 'star'}
       color={getColor('white')}
       style={styles.icon}
       onPress={props.onRightIconPress}
