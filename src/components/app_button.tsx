@@ -1,14 +1,15 @@
 //
 
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text } from 'react-native';
 
 import { useTheme } from '../colors';
 
 type Props = {
   text?: string;
+  onPress?: () => void;
 };
 
-const AppButton = ({ text }: Props) => {
+const AppButton = ({ text, onPress }: Props) => {
   const { getColor } = useTheme();
 
   const styles = StyleSheet.create({
@@ -20,14 +21,15 @@ const AppButton = ({ text }: Props) => {
     },
     text: {
       color: getColor('white'),
+      textAlign: 'center',
       textTransform: 'uppercase',
     },
   });
 
   return (
-    <View style={styles.container}>
+    <Pressable style={styles.container} onPress={onPress}>
       <Text style={styles.text}>{text ?? ''}</Text>
-    </View>
+    </Pressable>
   );
 };
 

@@ -38,6 +38,7 @@ const PathScreen = ({ navigation }: any) => {
         <StatusBar backgroundColor={getColor(theme, 'primary')} />
         <AppHeader
           text="Aplicación"
+          leftIcon="arrow-back"
           onLeftIconPress={() => {
             navigation.goBack();
           }}
