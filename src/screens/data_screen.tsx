@@ -2,7 +2,11 @@
 
 import { useEffect, useState } from 'react';
 
-import { SafeAreaView, ScrollView, StatusBar, StyleSheet } from 'react-native';
+import { SafeAreaView, StatusBar, StyleSheet, View } from 'react-native';
+
+import * as Clipboard from 'expo-clipboard';
+
+import { AppButton } from '../components/app_button';
 
 import { AppHeader } from '../components/app_header';
 
@@ -24,9 +28,16 @@ const DataScreen = ({ navigation }: any) => {
   }, []);
 
   const styles = StyleSheet.create({
+    buttonContainer: {
+      marginTop: 20,
+    },
     container: {
       backgroundColor: getColor(theme, 'body_bg'),
       flex: 1,
+    },
+    contentContainer: {
+      flex: 1,
+      justifyContent: 'space-evenly',
     },
   });
 
@@ -44,9 +55,21 @@ const DataScreen = ({ navigation }: any) => {
             setTheme(theme === 'light' ? 'dark' : 'light');
           }}
         />
-        <ScrollView>
+        <View style={styles.contentContainer}>
+          <View style={styles.buttonContainer}>
+            <AppButton
+              text="Registrar"
+              onPress={() => {
+                console.log(lines);
+
+                (async () => {
+                  await Clipboard.setStringAsync(lines);
+                })();
+              }}
+            />
+          </View>
           <CodeView text={lines} />
-        </ScrollView>
+        </View>
       </SafeAreaView>
     </ThemeContext.Provider>
   );
