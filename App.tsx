@@ -10,9 +10,15 @@ import { HomeScreen } from './src/screens/home_screen';
 
 import { PathScreen } from './src/screens/path_screen';
 
+import { SectionScreen } from './src/screens/section_screen';
+
 import { AdminScreen } from './src/screens/admin_screen';
 
-import { SectionScreen } from './src/screens/section_screen';
+import { CreateSectionScreen } from './src/screens/create_section_screen';
+
+import { CreateLessonScreen } from './src/screens/create_lesson_screen';
+
+import { CreateTaskScreen } from './src/screens/create_task_screen';
 
 import { DataController } from './src/controllers/data_controller';
 
@@ -24,6 +30,7 @@ const App = () => {
       // NOTE: IF DEVELOPMENT
       await DataController.clear('sections');
 
+      // NOTE: IF DEVELOPMENT
       await DataController.start(true);
     })();
   });
@@ -55,6 +62,27 @@ const App = () => {
         <Stack.Screen
           name="Section"
           component={SectionScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="CreateSection"
+          component={CreateSectionScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="CreateLesson"
+          component={CreateLessonScreen}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="CreateTask"
+          component={CreateTaskScreen}
           options={{
             headerShown: false,
           }}
