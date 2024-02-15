@@ -7,13 +7,14 @@ import { Header, Icon } from '@rneui/base';
 import { useTheme } from '../colors';
 
 type Props = {
-  navigation: any;
   text?: string;
-  theme: string;
-  setTheme: (theme: string) => void;
+  leftIcon?: string;
+  rightIcon?: string;
+  onLeftIconPress?: () => void;
+  onRightIconPress?: () => void;
 };
 
-const AppHeader = ({ navigation, text, theme, setTheme }: Props) => {
+const AppHeader = (props: Props) => {
   const { getColor } = useTheme();
 
   const styles = StyleSheet.create({
@@ -35,29 +36,23 @@ const AppHeader = ({ navigation, text, theme, setTheme }: Props) => {
 
   const leftIcon = (
     <Icon
-      name="arrow-back"
+      name={props.leftIcon ?? 'menu'}
       color={getColor('white')}
       style={styles.icon}
-      onPress={() => {
-        navigation.goBack();
-      }}
+      onPress={props.onLeftIconPress}
     />
   );
 
   const rightIcon = (
     <Icon
-      name="star"
+      name={props.leftIcon ?? 'star'}
       color={getColor('white')}
       style={styles.icon}
-      onPress={() => {
-        if (theme === 'light') {
-          setTheme('dark');
-        } else {
-          setTheme('light');
-        }
-      }}
+      onPress={props.onRightIconPress}
     />
   );
+
+  const text = <Text style={styles.text}>{props.text ?? ''}</Text>;
 
   return (
     <Header
@@ -66,7 +61,7 @@ const AppHeader = ({ navigation, text, theme, setTheme }: Props) => {
         backgroundColor: getColor('primary'),
       }}
       leftComponent={leftIcon}
-      centerComponent={<Text style={styles.text}>{text}</Text>}
+      centerComponent={text}
       rightComponent={rightIcon}
     />
   );
