@@ -2,17 +2,11 @@
 
 import { useEffect, useState } from 'react';
 
-import {
-  FlatList,
-  SafeAreaView,
-  StatusBar,
-  StyleSheet,
-  Text,
-} from 'react-native';
-
-import { Header, Icon } from '@rneui/base';
+import { FlatList, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 
 import { SectionType } from '../models/section_type';
+
+import { AppHeader } from '../components/app_header';
 
 import { SectionCard } from '../components/section_card';
 
@@ -36,62 +30,21 @@ const PathScreen = ({ navigation }: any) => {
       backgroundColor: getColor(theme, 'body_bg'),
       flex: 1,
     },
-    header: {
-      backgroundColor: getColor(theme, 'primary'),
-      borderColor: getColor(theme, 'primary'),
-      height: 80,
-      justifyContent: 'center',
-    },
-    headerIcon: {
-      height: '100%',
-      justifyContent: 'center',
-    },
-    headerText: {
-      color: getColor(theme, 'white'),
-      fontSize: 20,
-    },
   });
-
-  const headerIcon = (
-    <Icon
-      name="menu"
-      color={getColor(theme, 'white')}
-      style={styles.headerIcon}
-      onPress={() => {
-        navigation.navigate('Home');
-      }}
-    />
-  );
-
-  const rightIcon = (
-    <Icon
-      name="star"
-      color={getColor(theme, 'white')}
-      style={styles.headerIcon}
-      onPress={() => {
-        if (theme === 'light') {
-          setTheme('dark');
-        } else {
-          setTheme('light');
-        }
-      }}
-    />
-  );
-
-  const headerText = <Text style={styles.headerText}>Aplicación</Text>;
 
   return (
     <ThemeContext.Provider value={theme}>
       <SafeAreaView style={styles.container}>
         <StatusBar backgroundColor={getColor(theme, 'primary')} />
-        <Header
-          containerStyle={styles.header}
-          statusBarProps={{
-            backgroundColor: getColor(theme, 'primary'),
+        <AppHeader
+          text="Aplicación"
+          leftIcon="arrow-back"
+          onLeftIconPress={() => {
+            navigation.goBack();
           }}
-          leftComponent={headerIcon}
-          centerComponent={headerText}
-          rightComponent={rightIcon}
+          onRightIconPress={() => {
+            setTheme(theme === 'light' ? 'dark' : 'light');
+          }}
         />
         <FlatList
           data={sections}
