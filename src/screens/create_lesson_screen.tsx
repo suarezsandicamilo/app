@@ -25,11 +25,13 @@ import { ThemeContext, getColor } from '../colors';
 const CreateLessonScreen = ({ navigation }: any) => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
+  // Data
   const [sections, setSections] = useState<SectionType[]>([]);
 
   // Form Data
   const [section, setSection] = useState<SectionType>();
 
+  // Fetch Data
   useEffect(() => {
     (async () => setSections(await SectionsController.read()))();
   }, []);

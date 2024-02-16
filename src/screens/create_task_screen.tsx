@@ -1,6 +1,6 @@
 //
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   SafeAreaView,
@@ -10,14 +10,43 @@ import {
   View,
 } from 'react-native';
 
+import { Picker } from '@react-native-picker/picker';
+
+import { SectionType } from '../models/section_type';
+
+import { LessonType } from '../models/lesson_type';
+
 import { AppButton } from '../components/app_button';
 
 import { AppHeader } from '../components/app_header';
+
+import { SectionsController } from '../controllers/sections_controller';
 
 import { ThemeContext, getColor } from '../colors';
 
 const CreateTaskScreen = ({ navigation }: any) => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
+
+  // Data
+  const [sections, setSections] = useState<SectionType[]>([]);
+
+  const [lessons, setLessons] = useState<LessonType[]>([]);
+
+  // Form Data
+  const [section, setSection] = useState<SectionType>();
+
+  const [lesson, setLesson] = useState<LessonType>();
+
+  // Fetch Data
+  useEffect(() => {
+    (async () => setSections(await SectionsController.read()))();
+  }, []);
+
+  useEffect(() => {
+    if (section != null) {
+      setLessons(section.lessons);
+    }
+  }, [section]);
 
   const styles = StyleSheet.create({
     container: {
@@ -34,6 +63,15 @@ const CreateTaskScreen = ({ navigation }: any) => {
       height: 40,
       marginBottom: 10,
       padding: 10,
+    },
+    picker: {
+      color: getColor(theme, 'body_color'),
+    },
+    pickerContainer: {
+      borderColor: getColor(theme, 'border_color'),
+      borderRadius: 4,
+      borderWidth: 1,
+      marginBottom: 10,
     },
   });
 
@@ -52,6 +90,36 @@ const CreateTaskScreen = ({ navigation }: any) => {
           }}
         />
         <View style={styles.form}>
+          <View style={styles.pickerContainer}>
+            <Picker
+              style={styles.picker}
+              selectedValue={section}
+              onValueChange={(section) => setSection(section)}
+            >
+              {sections.map((section) => (
+                <Picker.Item
+                  key={section.id}
+                  label={section.name}
+                  value={section}
+                />
+              ))}
+            </Picker>
+          </View>
+          <View style={styles.pickerContainer}>
+            <Picker
+              style={styles.picker}
+              selectedValue={lesson}
+              onValueChange={(lesson) => setLesson(lesson)}
+            >
+              {lessons.map((lesson) => (
+                <Picker.Item
+                  key={lesson.id}
+                  label={lesson.name}
+                  value={lesson}
+                />
+              ))}
+            </Picker>
+          </View>
           <TextInput
             style={styles.formTextInput}
             placeholder="Nombre"
