@@ -4,24 +4,28 @@ import { useEffect, useState } from 'react';
 
 import { FlatList, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 
-import { SectionType } from '../models/section_type';
+import { Section } from '../models/section';
 
 import { AppHeader } from '../components/app_header';
 
 import { SectionCard } from '../components/section_card';
 
-import { SectionsController } from '../controllers/sections_controller';
-
 import { ThemeContext, getColor } from '../colors';
+
+import { firestore, db } from './../firebase';
 
 const PathScreen = ({ navigation }: any) => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
-  const [sections, setSections] = useState<SectionType[]>([]);
+  const [sections, setSections] = useState<Section[]>([]);
 
   useEffect(() => {
     (async () => {
-      setSections(await SectionsController.read());
+      const ref = firestore.collection(db, 'sections');
+
+      const sections = await firestore.getDocs(ref);
+
+      setSections(sections.docs.map((doc) => doc.data()) as Section[]);
     })();
   }, []);
 

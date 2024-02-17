@@ -12,40 +12,55 @@ import {
 
 import { Picker } from '@react-native-picker/picker';
 
-import { SectionType } from '../models/section_type';
+import { Section } from '../models/section';
 
-import { LessonType } from '../models/lesson_type';
+import { Lesson } from '../models/lesson';
 
 import { AppButton } from '../components/app_button';
 
 import { AppHeader } from '../components/app_header';
 
-import { SectionsController } from '../controllers/sections_controller';
-
 import { ThemeContext, getColor } from '../colors';
+
+import { firestore, db } from './../firebase';
 
 const CreateTaskScreen = ({ navigation }: any) => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   // Data
-  const [sections, setSections] = useState<SectionType[]>([]);
+  const [sections, setSections] = useState<Section[]>([]);
 
-  const [lessons, setLessons] = useState<LessonType[]>([]);
+  const [lessons, setLessons] = useState<Lesson[]>([]);
 
   // Form Data
-  const [section, setSection] = useState<SectionType>();
+  const [section, setSection] = useState<Section>();
 
-  const [lesson, setLesson] = useState<LessonType>();
+  const [lesson, setLesson] = useState<Lesson>();
 
   // Fetch Data
   useEffect(() => {
-    (async () => setSections(await SectionsController.read()))();
+    (async () => {
+      const ref = firestore.collection(db, 'sections');
+
+      const sections = await firestore.getDocs(ref);
+
+      setSections(sections.docs.map((doc) => doc.data()) as Section[]);
+    })();
   }, []);
 
   useEffect(() => {
-    if (section != null) {
-      setLessons(section.lessons);
-    }
+    (async () => {
+      if (section != null) {
+        const query = firestore.query(
+          firestore.collection(db, 'lessons'),
+          firestore.where('sectionId', '==', section.id)
+        );
+
+        const lessons = await firestore.getDocs(query);
+
+        setLessons(lessons.docs.map((doc) => doc.data()) as Lesson[]);
+      }
+    })();
   }, [section]);
 
   const styles = StyleSheet.create({

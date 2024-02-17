@@ -1,6 +1,6 @@
 //
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import {
   SafeAreaView,
@@ -10,28 +10,14 @@ import {
   View,
 } from 'react-native';
 
-import { SectionType } from '../models/section_type';
-
 import { AppButton } from '../components/app_button';
 
 import { AppHeader } from '../components/app_header';
-
-import { SectionsController } from '../controllers/sections_controller';
 
 import { ThemeContext, getColor } from '../colors';
 
 const CreateSectionScreen = ({ navigation }: any) => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
-
-  const [sections, setSections] = useState<SectionType[]>([]);
-
-  useEffect(() => {
-    (async () => {
-      let sections = await SectionsController.read();
-
-      setSections(sections);
-    })();
-  }, []);
 
   const styles = StyleSheet.create({
     container: {

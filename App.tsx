@@ -1,7 +1,5 @@
 //
 
-import { useEffect } from 'react';
-
 import { NavigationContainer } from '@react-navigation/native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -22,21 +20,9 @@ import { CreateTaskScreen } from './src/screens/create_task_screen';
 
 import { DataScreen } from './src/screens/data_screen';
 
-import { DataController } from './src/controllers/data_controller';
-
 const Stack = createNativeStackNavigator();
 
 const App = () => {
-  useEffect(() => {
-    (async () => {
-      // NOTE: IF DEVELOPMENT
-      await DataController.clear('sections');
-
-      // NOTE: IF DEVELOPMENT
-      await DataController.start(true);
-    })();
-  });
-
   return (
     <NavigationContainer>
       <Stack.Navigator>

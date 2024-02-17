@@ -4,12 +4,12 @@ import { Pressable, StyleSheet, View } from 'react-native';
 
 import { Icon } from '@rneui/base';
 
-import { LessonType } from '../models/lesson_type';
+import { Lesson } from '../models/lesson';
 
 import { useTheme } from '../colors';
 
 type GenericProps = {
-  lesson: LessonType;
+  lesson: Lesson;
   navigation: any;
   fabBackgroundColor: string;
   iconColor: string;
@@ -19,13 +19,12 @@ type GenericProps = {
 };
 
 type Props = {
-  lesson: LessonType;
+  lesson: Lesson;
   navigation: any;
 };
 
 const GenericLessonFab = ({
   lesson,
-  navigation,
   fabBackgroundColor,
   iconColor,
   icon,

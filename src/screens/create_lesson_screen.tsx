@@ -12,28 +12,34 @@ import {
 
 import { Picker } from '@react-native-picker/picker';
 
-import { SectionType } from '../models/section_type';
+import { Section } from '../models/section';
 
 import { AppButton } from '../components/app_button';
 
 import { AppHeader } from '../components/app_header';
 
-import { SectionsController } from '../controllers/sections_controller';
-
 import { ThemeContext, getColor } from '../colors';
+
+import { firestore, db } from './../firebase';
 
 const CreateLessonScreen = ({ navigation }: any) => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   // Data
-  const [sections, setSections] = useState<SectionType[]>([]);
+  const [sections, setSections] = useState<Section[]>([]);
 
   // Form Data
-  const [section, setSection] = useState<SectionType>();
+  const [section, setSection] = useState<Section>();
 
   // Fetch Data
   useEffect(() => {
-    (async () => setSections(await SectionsController.read()))();
+    (async () => {
+      const ref = firestore.collection(db, 'sections');
+
+      const sections = await firestore.getDocs(ref);
+
+      setSections(sections.docs.map((doc) => doc.data()) as Section[]);
+    })();
   }, []);
 
   const styles = StyleSheet.create({
