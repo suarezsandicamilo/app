@@ -2,7 +2,7 @@
 
 import { Section } from '../models/section';
 
-import { firestore, db } from './../firebase';
+import { firestore, db } from '../firebase';
 
 const { collection, doc, getDocs, orderBy, query, setDoc } = firestore;
 

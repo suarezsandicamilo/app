@@ -13,7 +13,7 @@ import {
 
 import { Section } from '../models/section';
 
-import { SectionsController } from '../controllers/SectionsController';
+import { SectionsController } from '../controllers/sections_controller';
 
 import { AppHeader } from '../components/app_header';
 

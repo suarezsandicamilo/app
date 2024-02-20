@@ -12,7 +12,7 @@ import {
 
 import { Section } from '../models/section';
 
-import { SectionsController } from '../controllers/SectionsController';
+import { SectionsController } from '../controllers/sections_controller';
 
 import { AppButton } from '../components/app_button';
 
