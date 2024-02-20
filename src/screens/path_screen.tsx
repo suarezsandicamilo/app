@@ -2,7 +2,14 @@
 
 import { useEffect, useState } from 'react';
 
-import { FlatList, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  View,
+} from 'react-native';
 
 import { Section } from '../models/section';
 
@@ -30,11 +37,33 @@ const PathScreen = ({ navigation }: any) => {
   }, []);
 
   const styles = StyleSheet.create({
+    activityIndicator: {
+      margin: 20,
+    },
     container: {
       backgroundColor: getColor(theme, 'body_bg'),
       flex: 1,
     },
   });
+
+  let components = (
+    <View style={styles.activityIndicator}>
+      <ActivityIndicator color={getColor(theme, 'primary')} size="large" />
+    </View>
+  );
+
+  if (sections.length > 0) {
+    components = (
+      <FlatList
+        data={sections}
+        renderItem={({ item }) => {
+          return (
+            <SectionCard key={item.id} section={item} navigation={navigation} />
+          );
+        }}
+      />
+    );
+  }
 
   return (
     <ThemeContext.Provider value={theme}>
@@ -50,18 +79,7 @@ const PathScreen = ({ navigation }: any) => {
             setTheme(theme === 'light' ? 'dark' : 'light');
           }}
         />
-        <FlatList
-          data={sections}
-          renderItem={({ item }) => {
-            return (
-              <SectionCard
-                key={item.id}
-                section={item}
-                navigation={navigation}
-              />
-            );
-          }}
-        />
+        {components}
       </SafeAreaView>
     </ThemeContext.Provider>
   );

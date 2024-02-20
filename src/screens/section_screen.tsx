@@ -2,7 +2,14 @@
 
 import { useEffect, useState } from 'react';
 
-import { FlatList, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  View,
+} from 'react-native';
 
 import { Section } from '../models/section';
 
@@ -44,11 +51,31 @@ const SectionScreen = ({ navigation, route }: Props) => {
   }, []);
 
   const styles = StyleSheet.create({
+    activityIndicator: {
+      margin: 20,
+    },
     container: {
       backgroundColor: getColor(theme, 'body_bg'),
       flex: 1,
     },
   });
+
+  let components = (
+    <View style={styles.activityIndicator}>
+      <ActivityIndicator color={getColor(theme, 'primary')} size="large" />
+    </View>
+  );
+
+  if (lessons.length > 0) {
+    components = (
+      <FlatList
+        data={lessons}
+        renderItem={({ item }) => {
+          return <LessonFab lesson={item} navigation={navigation} />;
+        }}
+      />
+    );
+  }
 
   return (
     <ThemeContext.Provider value={theme}>
@@ -64,12 +91,7 @@ const SectionScreen = ({ navigation, route }: Props) => {
             setTheme(theme === 'light' ? 'dark' : 'light');
           }}
         />
-        <FlatList
-          data={lessons}
-          renderItem={({ item }) => {
-            return <LessonFab lesson={item} navigation={navigation} />;
-          }}
-        />
+        {components}
       </SafeAreaView>
     </ThemeContext.Provider>
   );
