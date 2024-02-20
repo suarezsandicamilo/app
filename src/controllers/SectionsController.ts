@@ -4,11 +4,15 @@ import { Section } from '../models/section';
 
 import { firestore, db } from './../firebase';
 
+const { collection, doc, getDocs, orderBy, query, setDoc } = firestore;
+
 class SectionsController {
   static async all() {
-    const ref = firestore.collection(db, 'sections');
+    const ref = collection(db, 'sections');
 
-    const sections = await firestore.getDocs(ref);
+    const q = query(ref, orderBy('pathIndex', 'asc'));
+
+    const sections = await getDocs(q);
 
     return sections.docs.map((doc) => doc.data()) as Section[];
   }
@@ -16,11 +20,11 @@ class SectionsController {
   static async add(section: Pick<Section, 'name' | 'description'>) {
     const sections = await SectionsController.all();
 
-    const ref = firestore.collection(db, 'sections');
+    const ref = collection(db, 'sections');
 
-    const docRef = firestore.doc(ref);
+    const docRef = doc(ref);
 
-    await firestore.setDoc(docRef, {
+    await setDoc(docRef, {
       id: docRef.id,
       name: section.name,
       description: section.description,

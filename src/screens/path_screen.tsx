@@ -13,13 +13,13 @@ import {
 
 import { Section } from '../models/section';
 
+import { SectionsController } from '../controllers/SectionsController';
+
 import { AppHeader } from '../components/app_header';
 
 import { SectionCard } from '../components/section_card';
 
 import { ThemeContext, getColor } from '../colors';
-
-import { firestore, db } from './../firebase';
 
 const PathScreen = ({ navigation }: any) => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
@@ -28,11 +28,7 @@ const PathScreen = ({ navigation }: any) => {
 
   useEffect(() => {
     (async () => {
-      const ref = firestore.collection(db, 'sections');
-
-      const sections = await firestore.getDocs(ref);
-
-      setSections(sections.docs.map((doc) => doc.data()) as Section[]);
+      setSections(await SectionsController.all());
     })();
   }, []);
 
