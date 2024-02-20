@@ -47,8 +47,9 @@ class LessonsController {
       id: docRef.id,
       name: lesson.name,
       description: lesson.description,
-      pathIndex: lessons.length,
+      sectionIndex: lessons.length,
       progress: 0,
+      sectionId: section.id,
     });
   }
 }
