@@ -16,6 +16,10 @@ import { Section } from '../models/section';
 
 import { Lesson } from '../models/lesson';
 
+import { SectionsController } from '../controllers/sections_controller';
+
+import { LessonsController } from '../controllers/lessons_controller';
+
 import { AppButton } from '../components/app_button';
 
 import { AppHeader } from '../components/app_header';
@@ -40,25 +44,14 @@ const CreateTaskScreen = ({ navigation }: any) => {
   // Fetch Data
   useEffect(() => {
     (async () => {
-      const ref = firestore.collection(db, 'sections');
-
-      const sections = await firestore.getDocs(ref);
-
-      setSections(sections.docs.map((doc) => doc.data()) as Section[]);
+      setSections(await SectionsController.all());
     })();
   }, []);
 
   useEffect(() => {
     (async () => {
       if (section != null) {
-        const query = firestore.query(
-          firestore.collection(db, 'lessons'),
-          firestore.where('sectionId', '==', section.id)
-        );
-
-        const lessons = await firestore.getDocs(query);
-
-        setLessons(lessons.docs.map((doc) => doc.data()) as Lesson[]);
+        setLessons(await LessonsController.allOf(section));
       }
     })();
   }, [section]);

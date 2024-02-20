@@ -14,13 +14,13 @@ import { Picker } from '@react-native-picker/picker';
 
 import { Section } from '../models/section';
 
+import { SectionsController } from '../controllers/sections_controller';
+
 import { AppButton } from '../components/app_button';
 
 import { AppHeader } from '../components/app_header';
 
 import { ThemeContext, getColor } from '../colors';
-
-import { firestore, db } from './../firebase';
 
 const CreateLessonScreen = ({ navigation }: any) => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
@@ -34,11 +34,7 @@ const CreateLessonScreen = ({ navigation }: any) => {
   // Fetch Data
   useEffect(() => {
     (async () => {
-      const ref = firestore.collection(db, 'sections');
-
-      const sections = await firestore.getDocs(ref);
-
-      setSections(sections.docs.map((doc) => doc.data()) as Section[]);
+      setSections(await SectionsController.all());
     })();
   }, []);
 

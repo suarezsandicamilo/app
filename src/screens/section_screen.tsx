@@ -15,13 +15,13 @@ import { Section } from '../models/section';
 
 import { Lesson } from '../models/lesson';
 
+import { LessonsController } from '../controllers/lessons_controller';
+
 import { AppHeader } from '../components/app_header';
 
 import { LessonFab } from '../components/lesson_fab';
 
 import { ThemeContext, getColor } from '../colors';
-
-import { firestore, db } from './../firebase';
 
 type Props = {
   navigation: any;
@@ -39,14 +39,7 @@ const SectionScreen = ({ navigation, route }: Props) => {
 
   useEffect(() => {
     (async () => {
-      const query = firestore.query(
-        firestore.collection(db, 'lessons'),
-        firestore.where('sectionId', '==', section.id)
-      );
-
-      const lessons = await firestore.getDocs(query);
-
-      setLessons(lessons.docs.map((doc) => doc.data()) as Lesson[]);
+      setLessons(await LessonsController.allOf(section));
     })();
   }, []);
 
