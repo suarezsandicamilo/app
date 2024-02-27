@@ -14,7 +14,7 @@ import { Section } from '../models';
 
 import { SectionsController } from '../controllers';
 
-import { AppButton, AppHeader } from '../components';
+import { AppButton } from '../components';
 
 import { getColor } from '../colors';
 
@@ -68,11 +68,6 @@ const CreateSectionScreen = ({ navigation }: any) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={getColor('primary')} />
-      <AppHeader
-        text="Crear Sección"
-        leftIcon="arrow-back"
-        onLeftIconPress={() => navigation.goBack()}
-      />
       <View style={styles.form}>
         <TextInput
           style={getTextInputStyle('name')}

@@ -15,7 +15,7 @@ import { Lesson, Section } from '../models';
 
 import { LessonsController } from '../controllers';
 
-import { AppHeader, LessonFab } from '../components';
+import { LessonFab } from '../components';
 
 import { useEffectAsync } from '../hooks';
 
@@ -67,11 +67,6 @@ const SectionScreen = ({ navigation, route }: Props) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={getColor('primary')} />
-      <AppHeader
-        text={section.name}
-        leftIcon="arrow-back"
-        onLeftIconPress={() => navigation.goBack()}
-      />
       {components}
     </SafeAreaView>
   );

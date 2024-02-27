@@ -2,7 +2,7 @@
 
 import { SafeAreaView, StatusBar, StyleSheet, View } from 'react-native';
 
-import { AppButton, AppHeader } from '../components';
+import { AppButton } from '../components';
 
 import { getColor } from '../colors';
 
@@ -21,11 +21,6 @@ const AdminScreen = ({ navigation }: any) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={getColor('primary')} />
-      <AppHeader
-        text="Administrador"
-        leftIcon="arrow-back"
-        onLeftIconPress={() => navigation.goBack()}
-      />
       <View style={styles.buttonsContainer}>
         <AppButton
           text="Crear Sección"

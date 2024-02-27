@@ -15,7 +15,7 @@ import { Section } from '../models';
 
 import { SectionsController } from '../controllers';
 
-import { AppHeader, SectionCard } from '../components';
+import { SectionCard } from '../components';
 
 import { useEffectAsync } from '../hooks';
 
@@ -58,11 +58,6 @@ const PathScreen = ({ navigation }: any) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={getColor('primary')} />
-      <AppHeader
-        text="Aplicación"
-        leftIcon="arrow-back"
-        onLeftIconPress={() => navigation.goBack()}
-      />
       {components}
     </SafeAreaView>
   );

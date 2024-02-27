@@ -16,7 +16,7 @@ import { Lesson, Section } from '../models';
 
 import { LessonsController, SectionsController } from '../controllers';
 
-import { AppButton, AppHeader } from '../components';
+import { AppButton } from '../components';
 
 import { useEffectAsync } from '../hooks';
 
@@ -91,11 +91,6 @@ const CreateLessonScreen = ({ navigation }: any) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={getColor('primary')} />
-      <AppHeader
-        text="Crear Lección"
-        leftIcon="arrow-back"
-        onLeftIconPress={() => navigation.goBack()}
-      />
       <View style={styles.form}>
         <View style={styles.pickerContainer}>
           <Picker

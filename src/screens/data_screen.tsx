@@ -6,13 +6,13 @@ import { SafeAreaView, StatusBar, StyleSheet, View } from 'react-native';
 
 import * as Clipboard from 'expo-clipboard';
 
-import { AppButton, AppHeader, CodeView } from '../components';
+import { AppButton, CodeView } from '../components';
 
 import { useEffectAsync } from '../hooks';
 
 import { getColor } from '../colors';
 
-const DataScreen = ({ navigation }: any) => {
+const DataScreen = () => {
   const [lines, setLines] = useState('');
 
   useEffectAsync(async () => {
@@ -36,11 +36,6 @@ const DataScreen = ({ navigation }: any) => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={getColor('primary')} />
-      <AppHeader
-        text="Datos"
-        leftIcon="arrow-back"
-        onLeftIconPress={() => navigation.goBack()}
-      />
       <View style={styles.contentContainer}>
         <View style={styles.buttonContainer}>
           <AppButton
@@ -52,7 +47,7 @@ const DataScreen = ({ navigation }: any) => {
             }}
           />
         </View>
-        <CodeView text={lines} />
+        <CodeView text={''} />
       </View>
     </SafeAreaView>
   );

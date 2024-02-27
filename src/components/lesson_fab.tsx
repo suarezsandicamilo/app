@@ -33,8 +33,9 @@ const GenericLessonFab = ({
 
   const styles = StyleSheet.create({
     container: {
-      borderRadius: 100,
       alignItems: 'center',
+      borderRadius: 100,
+      marginBottom: 10,
     },
     fab: {
       alignItems: 'center',
@@ -43,7 +44,7 @@ const GenericLessonFab = ({
       elevation: 4,
       height: 80,
       justifyContent: 'center',
-      marginTop: 20,
+      marginTop: 10,
       right: Math.sin(lesson.sectionIndex * frequency) * 64,
       width: 80,
     },
