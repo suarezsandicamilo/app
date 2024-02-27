@@ -1,39 +1,36 @@
 //
 
-import * as Crypto from 'expo-crypto';
+import { Section } from '../models/section';
 
-import { SectionType } from '../models/section_type';
+import { firestore, db } from '../firebase';
 
-import { DataController } from './data_controller';
+const { collection, doc, getDocs, orderBy, query, setDoc } = firestore;
 
 class SectionsController {
-  static async read() {
-    return await DataController.read<SectionType[]>('sections');
+  static async all() {
+    const ref = collection(db, 'sections');
+
+    const q = query(ref, orderBy('pathIndex', 'asc'));
+
+    const sections = await getDocs(q);
+
+    return sections.docs.map((doc) => doc.data()) as Section[];
   }
 
-  static async write(sections: SectionType[]) {
-    await DataController.write('sections', sections);
-  }
+  static async add(section: Pick<Section, 'name' | 'description'>) {
+    const sections = await SectionsController.all();
 
-  static async create(name: string, description: string) {
-    const sections = await this.read();
+    const ref = collection(db, 'sections');
 
-    const pathIndex = sections.length;
+    const docRef = doc(ref);
 
-    const section = {
-      id: Crypto.randomUUID(),
-      name,
-      description,
-      pathIndex,
+    await setDoc(docRef, {
+      id: docRef.id,
+      name: section.name,
+      description: section.description,
+      pathIndex: sections.length,
       progress: 0,
-      lessons: [],
-    };
-
-    sections.push(section);
-
-    this.write(sections);
-
-    return section;
+    });
   }
 }
 

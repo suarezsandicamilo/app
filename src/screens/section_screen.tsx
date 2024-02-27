@@ -1,10 +1,21 @@
 //
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { FlatList, SafeAreaView, StatusBar, StyleSheet } from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  View,
+} from 'react-native';
 
-import { SectionType } from '../models/section_type';
+import { Section } from '../models/section';
+
+import { Lesson } from '../models/lesson';
+
+import { LessonsController } from '../controllers/lessons_controller';
 
 import { AppHeader } from '../components/app_header';
 
@@ -20,16 +31,44 @@ type Props = {
 const SectionScreen = ({ navigation, route }: Props) => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
+  const [lessons, setLessons] = useState<Lesson[]>([]);
+
   const { section } = route.params as {
-    section: SectionType;
+    section: Section;
   };
 
+  useEffect(() => {
+    (async () => {
+      setLessons(await LessonsController.allOf(section));
+    })();
+  }, []);
+
   const styles = StyleSheet.create({
+    activityIndicator: {
+      margin: 20,
+    },
     container: {
       backgroundColor: getColor(theme, 'body_bg'),
       flex: 1,
     },
   });
+
+  let components = (
+    <View style={styles.activityIndicator}>
+      <ActivityIndicator color={getColor(theme, 'primary')} size="large" />
+    </View>
+  );
+
+  if (lessons.length > 0) {
+    components = (
+      <FlatList
+        data={lessons}
+        renderItem={({ item }) => {
+          return <LessonFab lesson={item} navigation={navigation} />;
+        }}
+      />
+    );
+  }
 
   return (
     <ThemeContext.Provider value={theme}>
@@ -45,12 +84,7 @@ const SectionScreen = ({ navigation, route }: Props) => {
             setTheme(theme === 'light' ? 'dark' : 'light');
           }}
         />
-        <FlatList
-          data={section.lessons}
-          renderItem={({ item }) => {
-            return <LessonFab lesson={item} navigation={navigation} />;
-          }}
-        />
+        {components}
       </SafeAreaView>
     </ThemeContext.Provider>
   );

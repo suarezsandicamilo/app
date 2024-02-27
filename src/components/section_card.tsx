@@ -4,12 +4,12 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { Button, Card } from '@rneui/base';
 
-import { SectionType } from '../models/section_type';
+import { Section } from '../models/section';
 
 import { useTheme } from '../colors';
 
 type Props = {
-  section: SectionType;
+  section: Section;
   navigation: any;
 };
 
