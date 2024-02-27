@@ -12,13 +12,17 @@ import {
 
 import { Picker } from '@react-native-picker/picker';
 
-import { SectionType } from '../models/section_type';
+import { Section } from '../models/section';
+
+import { Lesson } from '../models/lesson';
+
+import { SectionsController } from '../controllers/sections_controller';
+
+import { LessonsController } from '../controllers/lessons_controller';
 
 import { AppButton } from '../components/app_button';
 
 import { AppHeader } from '../components/app_header';
-
-import { SectionsController } from '../controllers/sections_controller';
 
 import { ThemeContext, getColor } from '../colors';
 
@@ -26,14 +30,25 @@ const CreateLessonScreen = ({ navigation }: any) => {
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
   // Data
-  const [sections, setSections] = useState<SectionType[]>([]);
+  const [sections, setSections] = useState<Section[]>([]);
 
   // Form Data
-  const [section, setSection] = useState<SectionType>();
+  const [section, setSection] = useState<Section>();
+
+  const [lesson, setLesson] = useState<Partial<Lesson>>({});
+
+  const update = (key: keyof Lesson, value: any) => {
+    setLesson((lessson) => ({
+      ...lessson,
+      [key]: value,
+    }));
+  };
 
   // Fetch Data
   useEffect(() => {
-    (async () => setSections(await SectionsController.read()))();
+    (async () => {
+      setSections(await SectionsController.all());
+    })();
   }, []);
 
   const styles = StyleSheet.create({
@@ -61,7 +76,25 @@ const CreateLessonScreen = ({ navigation }: any) => {
       borderWidth: 1,
       marginBottom: 10,
     },
+    requiredFormTextInput: {
+      borderColor: getColor(theme, 'danger'),
+      borderWidth: 1,
+    },
   });
+
+  const getTextInputStyle = (key: keyof Lesson) => {
+    const value = lesson[key];
+
+    if (typeof value === 'string') {
+      if (value.length > 0) {
+        return [styles.formTextInput];
+      }
+
+      return [styles.formTextInput, styles.requiredFormTextInput];
+    }
+
+    return [styles.formTextInput];
+  };
 
   return (
     <ThemeContext.Provider value={theme}>
@@ -92,16 +125,36 @@ const CreateLessonScreen = ({ navigation }: any) => {
             </Picker>
           </View>
           <TextInput
-            style={styles.formTextInput}
+            style={getTextInputStyle('name')}
             placeholder="Nombre"
             placeholderTextColor={getColor(theme, 'body_color')}
+            onChangeText={(text) => update('name', text)}
           />
           <TextInput
-            style={styles.formTextInput}
+            style={getTextInputStyle('description')}
             placeholder="Descripción"
             placeholderTextColor={getColor(theme, 'body_color')}
+            onChangeText={(text) => update('description', text)}
           />
-          <AppButton text="Enviar" />
+          <AppButton
+            text="Enviar"
+            onPress={() => {
+              const name = lesson.name ?? '';
+              const description = lesson.description ?? '';
+
+              update('name', name);
+              update('description', description);
+
+              if (name.length > 0 && description.length > 0) {
+                LessonsController.add(section, {
+                  name,
+                  description,
+                });
+
+                navigation.goBack();
+              }
+            }}
+          />
         </View>
       </SafeAreaView>
     </ThemeContext.Provider>

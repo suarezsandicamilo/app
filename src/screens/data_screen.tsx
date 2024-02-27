@@ -12,8 +12,6 @@ import { AppHeader } from '../components/app_header';
 
 import { CodeView } from '../components/code_view';
 
-import { SectionsController } from '../controllers/sections_controller';
-
 import { ThemeContext, getColor } from '../colors';
 
 const DataScreen = ({ navigation }: any) => {
@@ -23,7 +21,7 @@ const DataScreen = ({ navigation }: any) => {
 
   useEffect(() => {
     (async () => {
-      setLines(JSON.stringify(await SectionsController.read(), null, 2));
+      setLines(JSON.stringify({}, null, 2));
     })();
   }, []);
 

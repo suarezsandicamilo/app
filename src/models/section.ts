@@ -1,11 +1,11 @@
 //
 
-class TaskType {
+class Section {
   id: string;
   name: string;
   description: string;
-  lessonIndex: number;
+  pathIndex: number;
   progress: number;
 }
 
-export { TaskType };
+export { Section };
