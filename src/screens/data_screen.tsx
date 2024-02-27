@@ -12,11 +12,9 @@ import { AppHeader } from '../components/app_header';
 
 import { CodeView } from '../components/code_view';
 
-import { ThemeContext, getColor } from '../colors';
+import { getColor } from '../colors';
 
 const DataScreen = ({ navigation }: any) => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
-
   const [lines, setLines] = useState('');
 
   useEffect(() => {
@@ -30,7 +28,7 @@ const DataScreen = ({ navigation }: any) => {
       marginTop: 20,
     },
     container: {
-      backgroundColor: getColor(theme, 'body_bg'),
+      backgroundColor: getColor('body_bg'),
       flex: 1,
     },
     contentContainer: {
@@ -40,36 +38,27 @@ const DataScreen = ({ navigation }: any) => {
   });
 
   return (
-    <ThemeContext.Provider value={theme}>
-      <SafeAreaView style={styles.container}>
-        <StatusBar backgroundColor={getColor(theme, 'primary')} />
-        <AppHeader
-          text="Datos"
-          leftIcon="arrow-back"
-          onLeftIconPress={() => {
-            navigation.goBack();
-          }}
-          onRightIconPress={() => {
-            setTheme(theme === 'light' ? 'dark' : 'light');
-          }}
-        />
-        <View style={styles.contentContainer}>
-          <View style={styles.buttonContainer}>
-            <AppButton
-              text="Registrar"
-              onPress={() => {
-                console.log(lines);
+    <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor={getColor('primary')} />
+      <AppHeader
+        text="Datos"
+        leftIcon="arrow-back"
+        onLeftIconPress={() => navigation.goBack()}
+      />
+      <View style={styles.contentContainer}>
+        <View style={styles.buttonContainer}>
+          <AppButton
+            text="Registrar"
+            onPress={() => {
+              console.log(lines);
 
-                (async () => {
-                  await Clipboard.setStringAsync(lines);
-                })();
-              }}
-            />
-          </View>
-          <CodeView text={lines} />
+              (async () => await Clipboard.setStringAsync(lines))();
+            }}
+          />
         </View>
-      </SafeAreaView>
-    </ThemeContext.Provider>
+        <CodeView text={lines} />
+      </View>
+    </SafeAreaView>
   );
 };
 
