@@ -1,6 +1,6 @@
 //
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import {
   SafeAreaView,
@@ -12,17 +12,13 @@ import {
 
 import { Picker } from '@react-native-picker/picker';
 
-import { Section } from '../models/section';
+import { Lesson, Section } from '../models';
 
-import { Lesson } from '../models/lesson';
+import { LessonsController, SectionsController } from '../controllers';
 
-import { SectionsController } from '../controllers/sections_controller';
+import { AppButton, AppHeader } from '../components';
 
-import { LessonsController } from '../controllers/lessons_controller';
-
-import { AppButton } from '../components/app_button';
-
-import { AppHeader } from '../components/app_header';
+import { useEffectAsync } from '../hooks';
 
 import { getColor } from '../colors';
 
@@ -43,10 +39,8 @@ const CreateLessonScreen = ({ navigation }: any) => {
   };
 
   // Fetch Data
-  useEffect(() => {
-    (async () => {
-      setSections(await SectionsController.all());
-    })();
+  useEffectAsync(async () => {
+    setSections(await SectionsController.all());
   }, []);
 
   const styles = StyleSheet.create({

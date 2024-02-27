@@ -1,26 +1,22 @@
 //
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { SafeAreaView, StatusBar, StyleSheet, View } from 'react-native';
 
 import * as Clipboard from 'expo-clipboard';
 
-import { AppButton } from '../components/app_button';
+import { AppButton, AppHeader, CodeView } from '../components';
 
-import { AppHeader } from '../components/app_header';
-
-import { CodeView } from '../components/code_view';
+import { useEffectAsync } from '../hooks';
 
 import { getColor } from '../colors';
 
 const DataScreen = ({ navigation }: any) => {
   const [lines, setLines] = useState('');
 
-  useEffect(() => {
-    (async () => {
-      setLines(JSON.stringify({}, null, 2));
-    })();
+  useEffectAsync(async () => {
+    setLines(JSON.stringify({}, null, 2));
   }, []);
 
   const styles = StyleSheet.create({

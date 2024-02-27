@@ -2,7 +2,7 @@
 
 import { SafeAreaView, StatusBar, StyleSheet } from 'react-native';
 
-import { AppButton } from '../components/app_button';
+import { AppButton } from '../components';
 
 import { getColor } from '../colors';
 

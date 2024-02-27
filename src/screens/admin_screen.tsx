@@ -2,9 +2,7 @@
 
 import { SafeAreaView, StatusBar, StyleSheet, View } from 'react-native';
 
-import { AppHeader } from '../components/app_header';
-
-import { AppButton } from '../components/app_button';
+import { AppButton, AppHeader } from '../components';
 
 import { getColor } from '../colors';
 

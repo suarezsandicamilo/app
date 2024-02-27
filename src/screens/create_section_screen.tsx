@@ -10,13 +10,11 @@ import {
   View,
 } from 'react-native';
 
-import { Section } from '../models/section';
+import { Section } from '../models';
 
-import { SectionsController } from '../controllers/sections_controller';
+import { SectionsController } from '../controllers';
 
-import { AppButton } from '../components/app_button';
-
-import { AppHeader } from '../components/app_header';
+import { AppButton, AppHeader } from '../components';
 
 import { getColor } from '../colors';
 

@@ -1,6 +1,6 @@
 //
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import {
   ActivityIndicator,
@@ -11,23 +11,21 @@ import {
   View,
 } from 'react-native';
 
-import { Section } from '../models/section';
+import { Section } from '../models';
 
-import { SectionsController } from '../controllers/sections_controller';
+import { SectionsController } from '../controllers';
 
-import { AppHeader } from '../components/app_header';
+import { AppHeader, SectionCard } from '../components';
 
-import { SectionCard } from '../components/section_card';
+import { useEffectAsync } from '../hooks';
 
 import { getColor } from '../colors';
 
 const PathScreen = ({ navigation }: any) => {
   const [sections, setSections] = useState<Section[]>([]);
 
-  useEffect(() => {
-    (async () => {
-      setSections(await SectionsController.all());
-    })();
+  useEffectAsync(async () => {
+    setSections(await SectionsController.all());
   }, []);
 
   const styles = StyleSheet.create({

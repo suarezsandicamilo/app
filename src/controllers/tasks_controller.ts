@@ -1,8 +1,6 @@
 //
 
-import { Lesson } from '../models/lesson';
-
-import { Task } from '../models/task';
+import { Lesson, Task } from '../models';
 
 import { firestore, db } from '../firebase';
 

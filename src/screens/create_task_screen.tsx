@@ -1,6 +1,6 @@
 //
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import {
   SafeAreaView,
@@ -12,21 +12,17 @@ import {
 
 import { Picker } from '@react-native-picker/picker';
 
-import { Section } from '../models/section';
+import { Lesson, Section, Task } from '../models';
 
-import { Lesson } from '../models/lesson';
+import {
+  LessonsController,
+  SectionsController,
+  TasksController,
+} from '../controllers';
 
-import { Task } from '../models/task';
+import { AppButton, AppHeader } from '../components';
 
-import { SectionsController } from '../controllers/sections_controller';
-
-import { LessonsController } from '../controllers/lessons_controller';
-
-import { TasksController } from '../controllers/tasks_controller';
-
-import { AppButton } from '../components/app_button';
-
-import { AppHeader } from '../components/app_header';
+import { useEffectAsync } from '../hooks';
 
 import { getColor } from '../colors';
 
@@ -51,18 +47,14 @@ const CreateTaskScreen = ({ navigation }: any) => {
   };
 
   // Fetch Data
-  useEffect(() => {
-    (async () => {
-      setSections(await SectionsController.all());
-    })();
+  useEffectAsync(async () => {
+    setSections(await SectionsController.all());
   }, []);
 
-  useEffect(() => {
-    (async () => {
-      if (section != null) {
-        setLessons(await LessonsController.allOf(section));
-      }
-    })();
+  useEffectAsync(async () => {
+    if (section != null) {
+      setLessons(await LessonsController.allOf(section));
+    }
   }, [section]);
 
   const styles = StyleSheet.create({

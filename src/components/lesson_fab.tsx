@@ -4,7 +4,7 @@ import { Pressable, StyleSheet, View } from 'react-native';
 
 import { Icon } from '@rneui/base';
 
-import { Lesson } from '../models/lesson';
+import { Lesson } from '../models/';
 
 import { getColor } from '../colors';
 

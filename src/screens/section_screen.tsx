@@ -1,6 +1,6 @@
 //
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import {
   ActivityIndicator,
@@ -11,15 +11,13 @@ import {
   View,
 } from 'react-native';
 
-import { Section } from '../models/section';
+import { Lesson, Section } from '../models';
 
-import { Lesson } from '../models/lesson';
+import { LessonsController } from '../controllers';
 
-import { LessonsController } from '../controllers/lessons_controller';
+import { AppHeader, LessonFab } from '../components';
 
-import { AppHeader } from '../components/app_header';
-
-import { LessonFab } from '../components/lesson_fab';
+import { useEffectAsync } from '../hooks';
 
 import { getColor } from '../colors';
 
@@ -35,10 +33,8 @@ const SectionScreen = ({ navigation, route }: Props) => {
     section: Section;
   };
 
-  useEffect(() => {
-    (async () => {
-      setLessons(await LessonsController.allOf(section));
-    })();
+  useEffectAsync(async () => {
+    setLessons(await LessonsController.allOf(section));
   }, []);
 
   const styles = StyleSheet.create({
