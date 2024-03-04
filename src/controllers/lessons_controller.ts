@@ -1,8 +1,6 @@
 //
 
-import { Section } from '../models/section';
-
-import { Lesson } from '../models/lesson';
+import { Lesson, Section } from '../models';
 
 import { firestore, db } from '../firebase';
 

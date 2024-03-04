@@ -1,6 +1,6 @@
 //
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import {
   ActivityIndicator,
@@ -11,17 +11,15 @@ import {
   View,
 } from 'react-native';
 
-import { Section } from '../models/section';
+import { Lesson, Section } from '../models';
 
-import { Lesson } from '../models/lesson';
+import { LessonsController } from '../controllers';
 
-import { LessonsController } from '../controllers/lessons_controller';
+import { LessonFab } from '../components';
 
-import { AppHeader } from '../components/app_header';
+import { useEffectAsync } from '../hooks';
 
-import { LessonFab } from '../components/lesson_fab';
-
-import { ThemeContext, getColor } from '../colors';
+import { getColor } from '../colors';
 
 type Props = {
   navigation: any;
@@ -29,18 +27,14 @@ type Props = {
 };
 
 const SectionScreen = ({ navigation, route }: Props) => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
-
   const [lessons, setLessons] = useState<Lesson[]>([]);
 
   const { section } = route.params as {
     section: Section;
   };
 
-  useEffect(() => {
-    (async () => {
-      setLessons(await LessonsController.allOf(section));
-    })();
+  useEffectAsync(async () => {
+    setLessons(await LessonsController.allOf(section));
   }, []);
 
   const styles = StyleSheet.create({
@@ -48,14 +42,14 @@ const SectionScreen = ({ navigation, route }: Props) => {
       margin: 20,
     },
     container: {
-      backgroundColor: getColor(theme, 'body_bg'),
+      backgroundColor: getColor('body_bg'),
       flex: 1,
     },
   });
 
   let components = (
     <View style={styles.activityIndicator}>
-      <ActivityIndicator color={getColor(theme, 'primary')} size="large" />
+      <ActivityIndicator color={getColor('primary')} size="large" />
     </View>
   );
 
@@ -63,30 +57,18 @@ const SectionScreen = ({ navigation, route }: Props) => {
     components = (
       <FlatList
         data={lessons}
-        renderItem={({ item }) => {
-          return <LessonFab lesson={item} navigation={navigation} />;
-        }}
+        renderItem={({ item }) => (
+          <LessonFab lesson={item} navigation={navigation} />
+        )}
       />
     );
   }
 
   return (
-    <ThemeContext.Provider value={theme}>
-      <SafeAreaView style={styles.container}>
-        <StatusBar backgroundColor={getColor(theme, 'primary')} />
-        <AppHeader
-          text={section.name}
-          leftIcon="arrow-back"
-          onLeftIconPress={() => {
-            navigation.goBack();
-          }}
-          onRightIconPress={() => {
-            setTheme(theme === 'light' ? 'dark' : 'light');
-          }}
-        />
-        {components}
-      </SafeAreaView>
-    </ThemeContext.Provider>
+    <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor={getColor('primary')} />
+      {components}
+    </SafeAreaView>
   );
 };
 

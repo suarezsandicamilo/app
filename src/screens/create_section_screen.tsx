@@ -10,19 +10,15 @@ import {
   View,
 } from 'react-native';
 
-import { Section } from '../models/section';
+import { Section } from '../models';
 
-import { SectionsController } from '../controllers/sections_controller';
+import { SectionsController } from '../controllers';
 
-import { AppButton } from '../components/app_button';
+import { AppButton } from '../components';
 
-import { AppHeader } from '../components/app_header';
-
-import { ThemeContext, getColor } from '../colors';
+import { getColor } from '../colors';
 
 const CreateSectionScreen = ({ navigation }: any) => {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
-
   // Form Data
   const [section, setSection] = useState<Partial<Section>>({});
 
@@ -35,14 +31,14 @@ const CreateSectionScreen = ({ navigation }: any) => {
 
   const styles = StyleSheet.create({
     container: {
-      backgroundColor: getColor(theme, 'body_bg'),
+      backgroundColor: getColor('body_bg'),
       flex: 1,
     },
     form: {
       margin: 20,
     },
     formTextInput: {
-      borderColor: getColor(theme, 'border_color'),
+      borderColor: getColor('border_color'),
       borderRadius: 4,
       borderWidth: 1,
       height: 40,
@@ -50,7 +46,7 @@ const CreateSectionScreen = ({ navigation }: any) => {
       padding: 10,
     },
     requiredFormTextInput: {
-      borderColor: getColor(theme, 'danger'),
+      borderColor: getColor('danger'),
       borderWidth: 1,
     },
   });
@@ -70,52 +66,42 @@ const CreateSectionScreen = ({ navigation }: any) => {
   };
 
   return (
-    <ThemeContext.Provider value={theme}>
-      <SafeAreaView style={styles.container}>
-        <StatusBar backgroundColor={getColor(theme, 'primary')} />
-        <AppHeader
-          text="Crear Sección"
-          leftIcon="arrow-back"
-          onLeftIconPress={() => navigation.goBack()}
-          onRightIconPress={() =>
-            setTheme(theme === 'light' ? 'dark' : 'light')
-          }
+    <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor={getColor('primary')} />
+      <View style={styles.form}>
+        <TextInput
+          style={getTextInputStyle('name')}
+          placeholder="Nombre"
+          placeholderTextColor={getColor('body_color')}
+          onChangeText={(text) => update('name', text)}
         />
-        <View style={styles.form}>
-          <TextInput
-            style={getTextInputStyle('name')}
-            placeholder="Nombre"
-            placeholderTextColor={getColor(theme, 'body_color')}
-            onChangeText={(text) => update('name', text)}
-          />
-          <TextInput
-            style={getTextInputStyle('description')}
-            placeholder="Descripción"
-            placeholderTextColor={getColor(theme, 'body_color')}
-            onChangeText={(text) => update('description', text)}
-          />
-          <AppButton
-            text="Enviar"
-            onPress={() => {
-              const name = section.name ?? '';
-              const description = section.description ?? '';
+        <TextInput
+          style={getTextInputStyle('description')}
+          placeholder="Descripción"
+          placeholderTextColor={getColor('body_color')}
+          onChangeText={(text) => update('description', text)}
+        />
+        <AppButton
+          text="Enviar"
+          onPress={() => {
+            const name = section.name ?? '';
+            const description = section.description ?? '';
 
-              update('name', name);
-              update('description', description);
+            update('name', name);
+            update('description', description);
 
-              if (name.length > 0 && description.length > 0) {
-                SectionsController.add({
-                  name,
-                  description,
-                });
+            if (name.length > 0 && description.length > 0) {
+              SectionsController.add({
+                name,
+                description,
+              });
 
-                navigation.goBack();
-              }
-            }}
-          />
-        </View>
-      </SafeAreaView>
-    </ThemeContext.Provider>
+              navigation.goBack();
+            }
+          }}
+        />
+      </View>
+    </SafeAreaView>
   );
 };
 

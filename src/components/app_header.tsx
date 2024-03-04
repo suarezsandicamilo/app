@@ -4,7 +4,7 @@ import { StyleSheet, Text } from 'react-native';
 
 import { Header, Icon } from '@rneui/base';
 
-import { useTheme } from '../colors';
+import { getColor } from '../colors';
 
 type Props = {
   text?: string;
@@ -15,8 +15,6 @@ type Props = {
 };
 
 const AppHeader = (props: Props) => {
-  const { getColor } = useTheme();
-
   const styles = StyleSheet.create({
     container: {
       backgroundColor: getColor('primary'),

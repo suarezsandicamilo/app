@@ -1,6 +1,6 @@
 //
 
-import { Section } from '../models/section';
+import { Section } from '../models';
 
 import { firestore, db } from '../firebase';
 

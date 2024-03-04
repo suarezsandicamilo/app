@@ -4,9 +4,9 @@ import { Pressable, StyleSheet, View } from 'react-native';
 
 import { Icon } from '@rneui/base';
 
-import { Lesson } from '../models/lesson';
+import { Lesson } from '../models/';
 
-import { useTheme } from '../colors';
+import { getColor } from '../colors';
 
 type GenericProps = {
   lesson: Lesson;
@@ -14,7 +14,6 @@ type GenericProps = {
   fabBackgroundColor: string;
   iconColor: string;
   icon: string;
-  iconColorDark?: string;
   iconFontSize?: number;
 };
 
@@ -28,17 +27,15 @@ const GenericLessonFab = ({
   fabBackgroundColor,
   iconColor,
   icon,
-  iconColorDark,
   iconFontSize,
 }: GenericProps) => {
-  const { getColor, getEitherColor } = useTheme();
-
   const frequency = (Math.PI * 2) / 8;
 
   const styles = StyleSheet.create({
     container: {
-      borderRadius: 100,
       alignItems: 'center',
+      borderRadius: 100,
+      marginBottom: 10,
     },
     fab: {
       alignItems: 'center',
@@ -47,15 +44,12 @@ const GenericLessonFab = ({
       elevation: 4,
       height: 80,
       justifyContent: 'center',
-      marginTop: 20,
+      marginTop: 10,
       right: Math.sin(lesson.sectionIndex * frequency) * 64,
       width: 80,
     },
     icon: {
-      color: getEitherColor(
-        iconColor as any,
-        iconColorDark ?? (iconColor as any)
-      ),
+      color: getColor(iconColor as any),
       fontSize: iconFontSize ?? 23,
     },
   });
@@ -88,7 +82,6 @@ const LessonFab = (props: Props) => {
         fabBackgroundColor="primary"
         iconColor="secondary_bg_subtle"
         icon="star"
-        iconColorDark="white"
       />
     );
   }
@@ -100,7 +93,6 @@ const LessonFab = (props: Props) => {
         fabBackgroundColor="primary"
         iconColor="secondary_bg_subtle"
         icon="check"
-        iconColorDark="white"
         iconFontSize={34}
       />
     );

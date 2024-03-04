@@ -4,9 +4,9 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { Button, Card } from '@rneui/base';
 
-import { Section } from '../models/section';
+import { Section } from '../models/';
 
-import { useTheme } from '../colors';
+import { getColor } from '../colors';
 
 type Props = {
   section: Section;
@@ -14,8 +14,6 @@ type Props = {
 };
 
 const SectionCard = ({ section, navigation }: Props) => {
-  const { getColor, getEitherColor } = useTheme();
-
   const baseStyles = StyleSheet.create({
     button: {
       backgroundColor: getColor('primary_bg_subtle'),
@@ -30,7 +28,7 @@ const SectionCard = ({ section, navigation }: Props) => {
       textTransform: 'uppercase',
     },
     container: {
-      backgroundColor: getEitherColor('body_bg', 'dark_bg_subtle'),
+      backgroundColor: getColor('body_bg'),
       borderWidth: 0,
       marginBottom: 1,
     },
@@ -53,7 +51,7 @@ const SectionCard = ({ section, navigation }: Props) => {
       textTransform: 'uppercase',
     },
     container: {
-      backgroundColor: getEitherColor('primary_bg_subtle', 'secondary_bg'),
+      backgroundColor: getColor('primary_bg_subtle'),
       borderWidth: 0,
       marginBottom: 1,
     },
@@ -76,11 +74,11 @@ const SectionCard = ({ section, navigation }: Props) => {
       <View style={styles.buttonContainer}>
         <Button
           buttonStyle={styles.button}
-          onPress={() => {
+          onPress={() =>
             navigation.navigate('Section', {
               section,
-            });
-          }}
+            })
+          }
         >
           <Text style={styles.buttonText}>{buttonText}</Text>
         </Button>

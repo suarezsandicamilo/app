@@ -2,7 +2,7 @@
 
 import { Pressable, StyleSheet, Text } from 'react-native';
 
-import { useTheme } from '../colors';
+import { getColor } from '../colors';
 
 type Props = {
   text?: string;
@@ -10,8 +10,6 @@ type Props = {
 };
 
 const AppButton = ({ text, onPress }: Props) => {
-  const { getColor } = useTheme();
-
   const styles = StyleSheet.create({
     container: {
       backgroundColor: getColor('primary'),

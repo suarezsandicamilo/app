@@ -4,21 +4,14 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import { HomeScreen } from './src/screens/home_screen';
-
-import { PathScreen } from './src/screens/path_screen';
-
-import { SectionScreen } from './src/screens/section_screen';
-
-import { AdminScreen } from './src/screens/admin_screen';
-
-import { CreateSectionScreen } from './src/screens/create_section_screen';
-
-import { CreateLessonScreen } from './src/screens/create_lesson_screen';
-
-import { CreateTaskScreen } from './src/screens/create_task_screen';
-
-import { DataScreen } from './src/screens/data_screen';
+import {
+  CreateLessonScreen,
+  CreateSectionScreen,
+  CreateTaskScreen,
+  DataScreen,
+  HomeScreen,
+  SectionScreen,
+} from './src/screens';
 
 const Stack = createNativeStackNavigator();
 
@@ -33,53 +26,33 @@ const App = () => {
             headerShown: false,
           }}
         />
-        <Stack.Screen
-          name="Path"
-          component={PathScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Admin"
-          component={AdminScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
-        <Stack.Screen
-          name="Section"
-          component={SectionScreen}
-          options={{
-            headerShown: false,
-          }}
-        />
+        <Stack.Screen name="Section" component={SectionScreen} />
         <Stack.Screen
           name="CreateSection"
           component={CreateSectionScreen}
           options={{
-            headerShown: false,
+            title: 'Crear Sección',
           }}
         />
         <Stack.Screen
           name="CreateLesson"
           component={CreateLessonScreen}
           options={{
-            headerShown: false,
+            title: 'Crear Lección',
           }}
         />
         <Stack.Screen
           name="CreateTask"
           component={CreateTaskScreen}
           options={{
-            headerShown: false,
+            title: 'Crear Tarea',
           }}
         />
         <Stack.Screen
           name="Data"
           component={DataScreen}
           options={{
-            headerShown: false,
+            title: 'Datos',
           }}
         />
       </Stack.Navigator>
