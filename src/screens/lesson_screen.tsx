@@ -4,6 +4,8 @@ import { SafeAreaView, StatusBar } from 'react-native';
 
 import { Lesson } from '../models';
 
+import { ProgressBar } from '../components';
+
 import { getColor } from '../colors';
 
 type Props = {
@@ -19,6 +21,7 @@ const LessonScreen = ({ navigation, route }: Props) => {
   return (
     <SafeAreaView>
       <StatusBar backgroundColor={getColor('primary')} />
+      <ProgressBar progress={0.5}/>
     </SafeAreaView>
   );
 };
