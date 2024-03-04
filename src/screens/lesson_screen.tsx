@@ -52,6 +52,8 @@ const LessonScreen = ({ navigation, route }: Props) => {
       {progressBar}
       <View style={styles.textContainer}>
         <Text>{progress}</Text>
+        <Text>{tasks[progress - 1]?.id}</Text>
+        <Text>{tasks[progress - 1]?.name}</Text>
       </View>
       <View style={styles.buttonContainer}>
         <AppButton
