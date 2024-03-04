@@ -10,6 +10,7 @@ import {
   CreateTaskScreen,
   DataScreen,
   HomeScreen,
+  LessonScreen,
   SectionScreen,
 } from './src/screens';
 
@@ -27,6 +28,13 @@ const App = () => {
           }}
         />
         <Stack.Screen name="Section" component={SectionScreen} />
+        <Stack.Screen
+          name="Lesson"
+          component={LessonScreen}
+          options={{
+            title: 'Lección',
+          }}
+        />
         <Stack.Screen
           name="CreateSection"
           component={CreateSectionScreen}

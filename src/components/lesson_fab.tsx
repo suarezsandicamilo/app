@@ -15,11 +15,13 @@ type GenericProps = {
   iconColor: string;
   icon: string;
   iconFontSize?: number;
+  onPress?: () => void;
 };
 
 type Props = {
   lesson: Lesson;
   navigation: any;
+  onPress?: () => void;
 };
 
 const GenericLessonFab = ({
@@ -28,6 +30,7 @@ const GenericLessonFab = ({
   iconColor,
   icon,
   iconFontSize,
+  onPress,
 }: GenericProps) => {
   const frequency = (Math.PI * 2) / 8;
 
@@ -56,7 +59,7 @@ const GenericLessonFab = ({
 
   return (
     <View style={styles.container}>
-      <Pressable style={styles.fab}>
+      <Pressable style={styles.fab} onPress={onPress}>
         <Icon name={icon} iconStyle={styles.icon} />
       </Pressable>
     </View>
