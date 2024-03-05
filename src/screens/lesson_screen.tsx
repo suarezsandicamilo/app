@@ -8,7 +8,7 @@ import { Lesson, Task } from '../models';
 
 import { TasksController } from '../controllers';
 
-import { AppButton, ProgressBar } from '../components';
+import { AppButton, If, ProgressBar } from '../components';
 
 import { useEffectAsync } from '../hooks';
 
@@ -40,16 +40,14 @@ const LessonScreen = ({ navigation, route }: Props) => {
 
   useEffectAsync(async () => setTasks(await TasksController.allOf(lesson)), []);
 
-  let progressBar = <ProgressBar progress={0} />;
-
-  if (tasks.length > 0) {
-    progressBar = <ProgressBar progress={progress / tasks.length} />;
-  }
-
   return (
     <SafeAreaView>
       <StatusBar backgroundColor={getColor('primary')} />
-      {progressBar}
+      <If
+        condition={tasks.length > 0}
+        then={<ProgressBar progress={progress / tasks.length} />}
+        else={<ProgressBar progress={0} />}
+      />
       <View style={styles.textContainer}>
         <Text>{progress}</Text>
         <Text>{tasks[progress - 1]?.id}</Text>
