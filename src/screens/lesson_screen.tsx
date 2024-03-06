@@ -2,13 +2,21 @@
 
 import { useState } from 'react';
 
-import { SafeAreaView, StatusBar, StyleSheet, Text, View } from 'react-native';
+import {
+  Pressable,
+  SafeAreaView,
+  StatusBar,
+  StyleSheet,
+  View,
+} from 'react-native';
+
+import { MaterialIcons as Icon } from '@expo/vector-icons/';
 
 import { Lesson, Task } from '../models';
 
 import { TasksController } from '../controllers';
 
-import { AppButton, If, ProgressBar } from '../components';
+import { If, ProgressBar } from '../components';
 
 import { useEffectAsync } from '../hooks';
 
@@ -29,8 +37,25 @@ const LessonScreen = ({ navigation, route }: Props) => {
   };
 
   const styles = StyleSheet.create({
-    buttonContainer: {
-      marginVertical: 10,
+    button: {
+      alignItems: 'center',
+      backgroundColor: getColor('primary'),
+      borderRadius: 16,
+      justifyContent: 'center',
+      height: 100,
+      width: 100,
+    },
+    buttonsContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-evenly',
+    },
+    container: {
+      height: '100%',
+    },
+    progressBarContainer: {
+      height: 60,
     },
     textContainer: {
       alignItems: 'center',
@@ -43,27 +68,28 @@ const LessonScreen = ({ navigation, route }: Props) => {
   return (
     <SafeAreaView>
       <StatusBar backgroundColor={getColor('primary')} />
-      <If
-        condition={tasks.length > 0}
-        then={<ProgressBar progress={progress / tasks.length} />}
-        else={<ProgressBar progress={0} />}
-      />
-      <View style={styles.textContainer}>
-        <Text>{progress}</Text>
-        <Text>{tasks[progress - 1]?.id}</Text>
-        <Text>{tasks[progress - 1]?.name}</Text>
-      </View>
-      <View style={styles.buttonContainer}>
-        <AppButton
-          text=">"
-          onPress={() => setProgress((p) => Math.min(p + 1, tasks.length))}
-        />
-      </View>
-      <View style={styles.buttonContainer}>
-        <AppButton
-          text="<"
-          onPress={() => setProgress((p) => Math.max(p - 1, 1))}
-        />
+      <View style={styles.container}>
+        <View style={styles.progressBarContainer}>
+          <If
+            condition={tasks.length > 0}
+            then={<ProgressBar progress={progress / tasks.length} />}
+            else={<ProgressBar progress={0} />}
+          />
+        </View>
+        <View style={styles.buttonsContainer}>
+          <Pressable
+            style={styles.button}
+            onPress={() => setProgress((p) => Math.max(p - 1, 1))}
+          >
+            <Icon name="arrow-left" color={getColor('white')} size={80} />
+          </Pressable>
+          <Pressable
+            style={styles.button}
+            onPress={() => setProgress((p) => Math.min(p + 1, tasks.length))}
+          >
+            <Icon name="arrow-right" color={getColor('white')} size={80} />
+          </Pressable>
+        </View>
       </View>
     </SafeAreaView>
   );
