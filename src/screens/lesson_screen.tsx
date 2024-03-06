@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import {
+  Image,
   Pressable,
   SafeAreaView,
   StatusBar,
@@ -54,6 +55,17 @@ const LessonScreen = ({ navigation, route }: Props) => {
     container: {
       height: '100%',
     },
+    image: {
+      borderRadius: 16,
+      height: 150,
+      width: 150,
+    },
+    imageContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-evenly',
+    },
     progressBarContainer: {
       height: 60,
     },
@@ -74,6 +86,16 @@ const LessonScreen = ({ navigation, route }: Props) => {
             condition={tasks.length > 0}
             then={<ProgressBar progress={progress / tasks.length} />}
             else={<ProgressBar progress={0} />}
+          />
+        </View>
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.image}
+            source={{
+              uri: `https://picsum.photos/seed/${
+                tasks[progress - 1]?.id ?? ''
+              }/100`,
+            }}
           />
         </View>
         <View style={styles.buttonsContainer}>
