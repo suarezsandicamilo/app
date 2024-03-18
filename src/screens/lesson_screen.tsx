@@ -3,7 +3,6 @@
 import { useState } from 'react';
 
 import {
-  Image,
   Pressable,
   SafeAreaView,
   StatusBar,
@@ -11,13 +10,13 @@ import {
   View,
 } from 'react-native';
 
-import { MaterialIcons as Icon } from '@expo/vector-icons/';
+import { MaterialIcons as Icon } from '@expo/vector-icons';
 
-import { Lesson, Task } from '../models';
+import { Lesson, Task, TheoryTask } from '../models';
 
 import { TasksController } from '../controllers';
 
-import { If, ProgressBar } from '../components';
+import { If, ProgressBar, Theory } from '../components';
 
 import { useEffectAsync } from '../hooks';
 
@@ -29,7 +28,7 @@ type Props = {
 };
 
 const LessonScreen = ({ navigation, route }: Props) => {
-  const [progress, setProgress] = useState(1);
+  const [progress, setProgress] = useState(0);
 
   const [tasks, setTasks] = useState<Task[]>([]);
 
@@ -43,8 +42,8 @@ const LessonScreen = ({ navigation, route }: Props) => {
       backgroundColor: getColor('primary'),
       borderRadius: 16,
       justifyContent: 'center',
-      height: 100,
-      width: 100,
+      height: 50,
+      width: 50,
     },
     buttonsContainer: {
       flex: 1,
@@ -84,32 +83,29 @@ const LessonScreen = ({ navigation, route }: Props) => {
         <View style={styles.progressBarContainer}>
           <If
             condition={tasks.length > 0}
-            then={<ProgressBar progress={progress / tasks.length} />}
+            then={<ProgressBar progress={progress / (tasks.length - 1)} />}
             else={<ProgressBar progress={0} />}
           />
         </View>
-        <View style={styles.imageContainer}>
-          <Image
-            style={styles.image}
-            source={{
-              uri: `https://picsum.photos/seed/${
-                tasks[progress - 1]?.id ?? ''
-              }/100`,
-            }}
-          />
-        </View>
+        <If
+          condition={tasks[progress]?.type === 'theory'}
+          then={<Theory task={tasks[progress] as TheoryTask} />}
+          else={<></>}
+        ></If>
         <View style={styles.buttonsContainer}>
           <Pressable
             style={styles.button}
-            onPress={() => setProgress((p) => Math.max(p - 1, 1))}
+            onPress={() => setProgress((p) => Math.max(p - 1, 0))}
           >
-            <Icon name="arrow-left" color={getColor('white')} size={80} />
+            <Icon name="arrow-left" color={getColor('white')} size={40} />
           </Pressable>
           <Pressable
             style={styles.button}
-            onPress={() => setProgress((p) => Math.min(p + 1, tasks.length))}
+            onPress={() =>
+              setProgress((p) => Math.min(p + 1, tasks.length - 1))
+            }
           >
-            <Icon name="arrow-right" color={getColor('white')} size={80} />
+            <Icon name="arrow-right" color={getColor('white')} size={40} />
           </Pressable>
         </View>
       </View>
