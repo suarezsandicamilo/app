@@ -12,6 +12,8 @@ import { DataScreen } from './data_screen';
 
 import { HomeScreen } from './home_screen';
 
+import { LessonScreen } from './lesson_screen';
+
 import { PathScreen } from './path_screen';
 
 import { SectionScreen } from './section_screen';
@@ -23,6 +25,7 @@ export {
   CreateTaskScreen,
   DataScreen,
   HomeScreen,
+  LessonScreen,
   PathScreen,
   SectionScreen,
 };

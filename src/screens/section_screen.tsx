@@ -58,7 +58,15 @@ const SectionScreen = ({ navigation, route }: Props) => {
       <FlatList
         data={lessons}
         renderItem={({ item }) => (
-          <LessonFab lesson={item} navigation={navigation} />
+          <LessonFab
+            lesson={item}
+            navigation={navigation}
+            onPress={() =>
+              navigation.navigate('Lesson', {
+                lesson: item,
+              })
+            }
+          />
         )}
       />
     );
