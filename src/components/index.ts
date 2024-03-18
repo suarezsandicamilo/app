@@ -12,4 +12,6 @@ import { ProgressBar } from './progress_bar';
 
 import { SectionCard } from './section_card';
 
-export { AppButton, CodeView, If, LessonFab, ProgressBar, SectionCard };
+import { Theory } from './theory';
+
+export { AppButton, CodeView, If, LessonFab, ProgressBar, SectionCard, Theory };
